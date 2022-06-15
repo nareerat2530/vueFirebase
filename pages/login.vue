@@ -5,6 +5,7 @@
         <div class="col-sm-8 offset-sm-2">
           <div>
             <h1>Please log in</h1>
+
             <form @submit.prevent="userLogin">
               <div class="form-group">
                 <label for="email">Email</label>
@@ -26,9 +27,11 @@
                   class="form-control"
                 />
               </div>
+
               <div>
                 <button type="submit">Submit</button>
               </div>
+              <Notification v-if="error" :Message="error" />
             </form>
           </div>
         </div>
@@ -40,7 +43,12 @@
 <script>
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
+import Notification from '~/components/Notification'
 export default {
+  components: {
+    Notification,
+  },
+
   middleware: 'auth',
   auth: 'guest',
 
@@ -49,25 +57,11 @@ export default {
       login: {
         email: '',
         password: '',
-        error: [],
       },
+      error: null,
     }
   },
   methods: {
-    checkForm(e) {
-      e.preventDefault()
-      this.errors = []
-
-      if (!this.username) {
-        this.errors.push('Sorry, the username is required')
-      }
-      if (!this.email) {
-        this.errors.push('Sorry, the email is required')
-      }
-      if (!this.errors.length) {
-        this.userLogin()
-      }
-    },
     async userLogin() {
       try {
         let response = await this.$auth.loginWith('local', { data: this.login })
@@ -83,8 +77,9 @@ export default {
         console.log('are you decoded???', resp.data)
         this.$auth.setUser(resp.data)
         this.$router.push('/')
-      } catch (err) {
-        console.log('error: ', err)
+      } catch (e) {
+        this.error = e.response.data.Message
+        console.log('There is something wrong sir', e.response.data.Message)
       }
     },
   },

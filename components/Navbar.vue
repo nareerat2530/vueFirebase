@@ -6,6 +6,15 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
+        <div v-show="$auth.loggedIn">
+          <b-navbar-nav>
+            <b-nav-item
+              ><nuxt-link @click="onLogout" class="navbar-item" to="/"
+                >logout</nuxt-link
+              ></b-nav-item
+            >
+          </b-navbar-nav>
+        </div>
         <b-navbar-nav>
           <b-nav-item
             ><nuxt-link class="navbar-item" to="/admin"
@@ -43,7 +52,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    async onLogout() {
+      await this.$auth.logout()
+    },
+  },
+}
 </script>
 
 <style lang="" scoped></style>

@@ -5,7 +5,7 @@
         <div class="col-sm-8 offset-sm-2">
           <div>
     <h1>Please Register</h1>
-    <Notification v-if="error" :message="error" />
+    
 
     <form @submit="checkForm">
       <div class="mb-3">
@@ -54,6 +54,7 @@
         <span>Already have a Account</span>&nbsp;
         <nuxt-link to="/login" class="a-link-emphasis"> Login</nuxt-link>
       </div>
+      <Notification v-if="error" :Message="error" />
     </form>
         </div>
         </div>
