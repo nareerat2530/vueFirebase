@@ -1,22 +1,18 @@
 <template lang="">
-  <div class="container">
+  <div class="container" >
     
       <NavBar/>
-    
-    
-   <button class="button-logout" @click="onLogout">log out</button>
-    <nuxt-link class="button-logout" to="/profile">profile</nuxt-link> 
-    
     <div v-if="$auth.loggedIn"> 
-     <h1>Hello {{ decoded.name }}</h1>
-      <p>This is all you have got {{ decoded.email }}</p>
+     <h1>Hello {{token.name}}  </h1>
+      <p>This is all you have got {{token.email}}</p>
    </div>
-    <div v-else>
-     <h1>Hello Log in or Register first OK?</h1>
-   </div> 
-      
+   
+      <div v-else>
+ <h1>Hello Log in or Register first OK?</h1>
+      </div>
     </div>
   </div>
+  
   </div>
 </template>
 <script>
@@ -26,26 +22,25 @@ export default {
   components:{
 NavBar
   },
-  data() {
-    const token = this.$auth.strategy.token.get()
-    if(token === null)
-    {
-      
+  // data() {
+  //  return {
+  //     token:"",
+  //     // decoded: "",
+  //     }
+  // },
+
+  computed:{
+    token(){
+      const token = this.$auth.strategy.token.get()
+     const decoded = jwt_decode(token)
+    // if(token){
+    //    decoded
+    //    console.log("what is going on",decoded)
+    // }
+    return decoded
     }
-    const decoded = jwt_decode(token)
-     console.log(decoded)
-    return {
-      token,
-      decoded,
-      
-    }
-  },
-  methods: {
-    async onLogout() {
-      await this.$auth.logout()
-    },
-    
-  },
+  }
+ 
 }
 </script>
 <style lang=""></style>

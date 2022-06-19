@@ -66,7 +66,7 @@ export default {
       try {
         let response = await this.$auth.loginWith('local', { data: this.login })
         const data = response.data
-        console.log(data)
+        // console.log(data)
         this.$auth.strategy.token.set(data.firebaseToken)
         const token = this.$auth.strategy.token.get()
         const decoded = jwt_decode(token)
@@ -74,7 +74,7 @@ export default {
         const resp = await axios.get(
           `https://localhost:7101/api/User/${decoded.user_id}`
         )
-        console.log('are you decoded???', resp.data)
+        // console.log('are you decoded???', resp.data)
         this.$auth.setUser(resp.data)
         this.$router.push('/')
       } catch (e) {
