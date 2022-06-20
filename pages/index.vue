@@ -1,26 +1,22 @@
 <template lang="">
-  <div class="container" >
-    
-      <NavBar/>
-    <div v-if="$auth.loggedIn"> 
-     <h1>Hello {{token.name}}  </h1>
-      <p>This is all you have got {{token.email}}</p>
-   </div>
-   
-      <div v-else>
- <h1>Hello Log in or Register first OK?</h1>
-      </div>
+  <div>
+    <NavBar />
+    <div v-if="$auth.loggedIn">
+      <h1>Hello {{ token.name }}</h1>
+      <p>This is all you have got {{ token.email }}</p>
     </div>
-  </div>
-  
+
+    <div v-else>
+      <h1>Hello Log in or Register first OK?</h1>
+    </div>
   </div>
 </template>
 <script>
 import jwt_decode from 'jwt-decode'
-import NavBar from "~/components/Navbar.vue"
+import NavBar from '~/components/Navbar.vue'
 export default {
-  components:{
-NavBar
+  components: {
+    NavBar,
   },
   // data() {
   //  return {
@@ -29,18 +25,17 @@ NavBar
   //     }
   // },
 
-  computed:{
-    token(){
+  computed: {
+    token() {
       const token = this.$auth.strategy.token.get()
-     const decoded = jwt_decode(token)
-    // if(token){
-    //    decoded
-    //    console.log("what is going on",decoded)
-    // }
-    return decoded
-    }
-  }
- 
+      const decoded = jwt_decode(token)
+      // if(token){
+      //    decoded
+      //    console.log("what is going on",decoded)
+      // }
+      return decoded
+    },
+  },
 }
 </script>
 <style lang=""></style>

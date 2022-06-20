@@ -52,7 +52,10 @@ export default {
             method: 'post',
           },
           // logout: { url: '/api/auth/logout', method: 'post' },
-          // user: { url: '/api/auth/user', method: 'get' },
+          user: {
+            url: 'https://localhost:7101/api/User',
+            method: 'get',
+          },
         },
       },
     },

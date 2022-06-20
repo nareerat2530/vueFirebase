@@ -1,5 +1,8 @@
 <template lang="">
-  <div>welcome to your profile page</div>
+  <div>
+    <h1>welcome to your profile page</h1>
+    <button><nuxt-link class="botton" to="/">Back</nuxt-link></button>
+  </div>
 </template>
 <script>
 import jwt_decode from 'jwt-decode'

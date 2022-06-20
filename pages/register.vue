@@ -54,8 +54,9 @@
         <span>Already have a Account</span>&nbsp;
         <nuxt-link to="/login" class="a-link-emphasis"> Login</nuxt-link>
       </div>
-      <Notification v-if="error" :Message="error" />
+     
     </form>
+     <Notification v-if="error" :Message="error" />
         </div>
         </div>
       </div>
@@ -113,11 +114,21 @@ export default {
           'https://localhost:7101/api/Authentication_/register',
           data
         )
-        console.log(response)
-
-        this.$router.push('profile')
+       
+         if (response) {
+          this.$auth.loginWith("local", {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          });
+          console.log(response)
+          this.$router.push("/");
+        }
+       
       } catch (e) {
         this.error = e.response.data.Message
+        console.log(e.response.data.Message)
       }
     },
   },

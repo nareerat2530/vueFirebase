@@ -1,5 +1,5 @@
 <template>
-  <div class="notification is-danger">
+  <div class="notification">
     {{ Message }}
   </div>
 </template>
@@ -10,3 +10,9 @@ export default {
   props: ['Message'],
 }
 </script>
+<style scoped>
+.notification {
+  font-size: 30px;
+  color: red;
+}
+</style>
