@@ -14,6 +14,7 @@
 <script>
 import jwt_decode from 'jwt-decode'
 import NavBar from '~/components/Navbar.vue'
+
 export default {
   components: {
     NavBar,
