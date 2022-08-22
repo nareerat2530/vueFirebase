@@ -123,7 +123,7 @@ export default {
             },
           });
           console.log(response)
-          this.$router.push("/");
+          this.$router.push("profile");
         }
        
       } catch (e) {

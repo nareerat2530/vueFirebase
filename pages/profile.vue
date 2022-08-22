@@ -1,12 +1,21 @@
 <template lang="">
   <div>
-    <h1>welcome to your profile page</h1>
+    <div class="container">
+      Booking
+
+    </div>
+    <CalendarMonth />
     <button><nuxt-link class="botton" to="/">Back</nuxt-link></button>
   </div>
 </template>
 <script>
 import jwt_decode from 'jwt-decode'
+import CalendarMonth from '../components/CalendarMonth.vue'
 export default {
+  components: {
+   
+    CalendarMonth,
+  },
   // async asyncData({ $axios, params }) {
   //   try {
   //     let user = $axios.$get(`https://localhost:7101/api/User/${params.id}`)
