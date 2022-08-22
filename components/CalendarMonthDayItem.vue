@@ -1,39 +1,42 @@
 <template>
 <div>
- <li 
- 
+ <li
     class="calendar-day"
     :class="{
       'calendar-day--not-current': !day.isCurrentMonth,
       'calendar-day--today': isToday,
     }"
   >
-  
     <span>{{ label }}</span>
   </li>
   <div>
-   <ModalEvent v-show="showModal"/>
+    <!-- <ModalEvent v-show="modalEvent"/> -->
   </div>
-</div>
+  </div>
+  
+
  
 </template>
 
 <script>
 import dayjs from 'dayjs'
- import ModalEvent from './ModalEvent.vue'
+// import ModalEvent from './ModalEvent.vue';
+
+
+
+ 
 
 
 export default {
   name: 'CalendarMonthDayItem',
 
   components:{
-    ModalEvent,
-
-    data(){
-      return{
-        showModal: false
-      }
-    }
+    // ModalEvent,
+    // data(){
+    //   return{
+    //     modalEvent: false
+    //   }
+    // }
    
 },
 

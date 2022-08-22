@@ -14,7 +14,11 @@
         :selected-date="selectedDate"
         @dateSelected="selectDate"
       />
-      <button>Add Appointment</button>
+       <button @click="modalEvent = true">Add Appointment</button>
+      
+     
+      <ModalEvent v-show="modalEvent"  @close-modal="showModal = false"/> 
+     
       </div>
     
      
@@ -28,7 +32,10 @@
         :is-today="day.date === today"
       />
     </ol>
-   
+    
+   <div>
+      
+  </div>
   </div>
 </template>
 
@@ -40,6 +47,9 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import CalendarDateSelector from './CalendarDateSelector'
  import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
+import ModalEvent from './ModalEvent.vue';
+
+
 
 
 dayjs.extend(weekday)
@@ -49,17 +59,18 @@ export default {
   name: 'CalendarMonth',
 
   components: {
-    
-     CalendarDateIndicator,
+    CalendarDateIndicator,
     CalendarDateSelector,
-     CalendarMonthDayItem,
+    CalendarMonthDayItem,
     CalendarWeekdays,
-    
+     ModalEvent,
   },
 
   data() {
     return {
       selectedDate: dayjs(),
+       modalEvent: false
+       
     }
   },
 
@@ -162,6 +173,10 @@ export default {
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate
     },
+    onclick(){
+      let banan = "hoalllfdg"
+      console.log(banan)
+    }
   },
 
 }

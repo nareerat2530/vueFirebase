@@ -10,14 +10,16 @@
     
     
 
-    <!-- <div v-else>
+    <div v-else>
       <h1>Hello Log in or Register first OK?</h1>
-    </div> -->
+    </div>
   
   </div>
 </template>
 <script>
-import CalendarMonth from '../components/CalendarMonth.vue'
+
+
+
 import jwt_decode from 'jwt-decode'
 import NavBar from '~/components/Navbar.vue'
 

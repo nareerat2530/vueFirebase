@@ -1,24 +1,27 @@
 <template>
-  <div class="modal-overlay">
-    <div class="modal">
-      
-      <h6>Saved!</h6>
-      <p>Your Details have been saved Successfully</p>
-      <button>Go Home</button>
+  <transition name="modal-fade">
+    <div class="modal-overlay" @click="$emit('close-modal')">
+      <div class="modal" @click.stop>
+        <img class="check" src="~/assets/check-icon.png" alt="" />
+        <h6>Saved!</h6>
+        <p>Your Details have been saved Successfully</p>
+        <button>Go Home</button>
+      </div>
+      <div class="close" @click="$emit('close-modal')">
+        <img class="close-img" src="~/assets/close-icon.svg" alt="" />
+      </div>
     </div>
-    <div class="close">
-      
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-  export default {
-    name: ModalEvent
+export default {
+
+  
 }
 </script>
-<style scoped>
 
+<style scoped>
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -39,6 +42,7 @@
   padding: 60px 0;
   border-radius: 20px;
 }
+
 .close {
   margin: 10% 0 0 16px;
   cursor: pointer;
@@ -59,6 +63,7 @@ h6 {
 }
 
 p {
+  /* font-weight: 500; */
   font-size: 16px;
   margin: 20px 0;
 }
@@ -71,5 +76,15 @@ button {
   font-size: 14px;
   border-radius: 16px;
   margin-top: 50px;
+}
+
+.modal-fade-enter,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 </style>
