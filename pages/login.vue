@@ -29,7 +29,7 @@
               </div>
 
               <div>
-                <button type="submit">Submit</button>
+                <button class="btn-submit" type="submit">Submit</button>
               </div>
               <Notification v-if="error" :Message="error" />
             </form>

@@ -122,8 +122,10 @@ export default {
               password: this.password,
             },
           });
-          console.log(response)
-          this.$router.push("profile");
+
+          console.log(response.data)
+          this.$router.push("/");
+
         }
        
       } catch (e) {

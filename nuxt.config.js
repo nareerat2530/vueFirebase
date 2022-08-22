@@ -18,21 +18,50 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/persistedstate.client.js' }],
+  plugins: [
+    { src: '~/plugins/persistedstate.client.js' },
+    { src: '~/plugins/vue-TextareaAutosize.js' },
+    { src: '~/plugins/firebase' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: ['@nuxtjs/vuetify'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyAr2aApjyLC7sg8pLET0ePdsJSiGL6TLZw',
+          authDomain: 'fir-with-dotnet.firebaseapp.com',
+          databaseURL:
+            'https://firebase-with-dotnet-default-rtdb.europe-west1.firebasedatabase.app',
+          projectId: 'firebase-with-dotnet',
+          storageBucket: 'firebase-with-dotnet.appspot.com',
+          messagingSenderId: '39716696512',
+          appId: '1:39716696512:web:da9a12a5e31ae3a4ae5825',
+          measurementId: 'G-6DRKBNE6KG',
+        },
+        services: {
+          services: {
+            auth: true,
+            // firestore: true,
+            // storage: true,
+            // realtimeDb: true,
+          },
+        },
+      },
+    ],
   ],
   auth: {
     strategies: {
