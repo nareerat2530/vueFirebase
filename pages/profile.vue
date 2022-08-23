@@ -22,4 +22,14 @@ export default {
   
 }
 </script>
-<style lang=""></style>
+<style scoped>
+button {
+  
+  
+  height: 40px;
+  color: white;
+  font-size: 16px;
+  border-radius: 16px;
+  
+}
+</style>

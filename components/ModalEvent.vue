@@ -2,7 +2,7 @@
   <transition name="modal-fade">
     <div class="modal-overlay" @click="$emit('close-modal')">
       <div class="modal-window" @click.stop>
-        <form @submit.prevent="userLogin">
+        <form>
           <div class="form-group">
             <label for="description">Description</label>
             <input
@@ -16,7 +16,7 @@
             <label for="description">Start Date</label>
             <input
               id="description"
-              type="description"
+              type="date"
               name="description"
               class="form-control"
             />
@@ -25,7 +25,7 @@
             <label for="description">End-date</label>
             <input
               id="description"
-              type="description"
+              type="date"
               name="description"
               class="form-control"
             />
@@ -104,6 +104,14 @@ button {
   color: white;
   font-size: 14px;
   border-radius: 16px;
-  margin-top: 100px;
+  margin-top: 20px;
+}
+form {
+  max-width: 420px;
+  margin:auto;
+  background: white;
+  text-align: left;
+  padding: 40px;
+  border-radius: 10px;
 }
 </style>

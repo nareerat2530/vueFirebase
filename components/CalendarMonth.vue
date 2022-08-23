@@ -12,7 +12,7 @@
       />
       <button @click="modalEvent = true">Add Appointment</button>
 
-      <ModalEvent v-if="modalEvent" @close-modal="modalEvent = false" />
+      <ModalEvent v-show="modalEvent" @close-modal="modalEvent = false" />
     </div>
 
     <CalendarWeekdays />
@@ -199,5 +199,14 @@ export default {
   grid-column-gap: var(--grid-gap);
   grid-row-gap: var(--grid-gap);
   border-top: solid 1px var(--grey-200);
+}
+button {
+  background-color: #ac003e;
+  width: 150px;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  border-radius: 16px;
+  
 }
 </style>
