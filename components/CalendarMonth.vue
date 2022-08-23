@@ -1,10 +1,6 @@
 <template>
   <div class="calendar-month">
-    
-   
     <div class="calendar-month-header">
-      
-      
       <CalendarDateIndicator
         :selected-date="selectedDate"
         class="calendar-month-header-selected-month"
@@ -14,14 +10,11 @@
         :selected-date="selectedDate"
         @dateSelected="selectDate"
       />
-       <button @click="modalEvent = true">Add Appointment</button>
-      
-     
-      <ModalEvent v-show="modalEvent"  @close-modal="showModal = false"/> 
-     
-      </div>
-    
-     
+      <button @click="modalEvent = true">Add Appointment</button>
+
+      <ModalEvent v-if="modalEvent" @close-modal="modalEvent = false" />
+    </div>
+
     <CalendarWeekdays />
 
     <ol class="days-grid">
@@ -32,10 +25,8 @@
         :is-today="day.date === today"
       />
     </ol>
-    
-   <div>
-      
-  </div>
+
+    <div></div>
   </div>
 </template>
 
@@ -43,14 +34,11 @@
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
- import CalendarDateIndicator from './CalendarDateIndicator.vue'
+import CalendarDateIndicator from './CalendarDateIndicator.vue'
 import CalendarDateSelector from './CalendarDateSelector'
- import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
+import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
-import ModalEvent from './ModalEvent.vue';
-
-
-
+import ModalEvent from './ModalEvent.vue'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -63,14 +51,13 @@ export default {
     CalendarDateSelector,
     CalendarMonthDayItem,
     CalendarWeekdays,
-     ModalEvent,
+    ModalEvent,
   },
 
   data() {
     return {
       selectedDate: dayjs(),
-       modalEvent: false
-       
+      modalEvent: false,
     }
   },
 
@@ -90,11 +77,11 @@ export default {
     month() {
       return this.selectedDate.format('M')
     },
-    
+
     year() {
       return this.selectedDate.format('YYYY')
     },
-          
+
     numberOfDaysInMonth() {
       return dayjs(this.selectedDate).daysInMonth()
     },
@@ -173,12 +160,11 @@ export default {
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate
     },
-    onclick(){
-      let banan = "hoalllfdg"
+    onclick() {
+      let banan = 'hoalllfdg'
       console.log(banan)
-    }
+    },
   },
-
 }
 </script>
 
@@ -187,7 +173,6 @@ export default {
   position: relative;
   background-color: white;
   border: solid 1px var(--grey-300);
-  
 }
 .day-of-week {
   color: var(--grey-800);

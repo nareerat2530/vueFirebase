@@ -1,24 +1,49 @@
 <template>
   <transition name="modal-fade">
     <div class="modal-overlay" @click="$emit('close-modal')">
-      <div class="modal" @click.stop>
-        <img class="check" src="~/assets/check-icon.png" alt="" />
-        <h6>Saved!</h6>
-        <p>Your Details have been saved Successfully</p>
-        <button>Go Home</button>
-      </div>
-      <div class="close" @click="$emit('close-modal')">
-        <img class="close-img" src="~/assets/close-icon.svg" alt="" />
+      <div class="modal-window" @click.stop>
+        <form @submit.prevent="userLogin">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input
+              id="description"
+              type="description"
+              name="description"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Start Date</label>
+            <input
+              id="description"
+              type="description"
+              name="description"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">End-date</label>
+            <input
+              id="description"
+              type="description"
+              name="description"
+              class="form-control"
+            />
+          </div>
+        </form>
+        <button>Cancel</button>
+        <button>Add</button>
+
+        <div class="close" @click="$emit('close-modal')">
+          <img class="close-img" src="~/assets/close-icon.svg" alt="" />
+        </div>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
-export default {
-
-  
-}
+export default {}
 </script>
 
 <style scoped>
@@ -28,24 +53,29 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
   background-color: #000000da;
+  z-index: 1;
 }
 
-.modal {
+.modal-window {
   text-align: center;
-  background-color: white;
+  background-color: rgb(244, 238, 238);
   height: 500px;
   width: 500px;
-  margin-top: 10%;
+  /* margin-top: 10%; */
+  margin: 100px auto;
   padding: 60px 0;
   border-radius: 20px;
+  display: block;
+  position: relative;
 }
-
 .close {
-  margin: 10% 0 0 16px;
   cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .close-img {
@@ -63,7 +93,6 @@ h6 {
 }
 
 p {
-  /* font-weight: 500; */
   font-size: 16px;
   margin: 20px 0;
 }
@@ -75,16 +104,6 @@ button {
   color: white;
   font-size: 14px;
   border-radius: 16px;
-  margin-top: 50px;
-}
-
-.modal-fade-enter,
-.modal-fade-leave-to {
-  opacity: 0;
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.5s ease;
+  margin-top: 100px;
 }
 </style>
