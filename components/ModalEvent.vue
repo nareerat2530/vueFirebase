@@ -31,7 +31,9 @@
             />
           </div>
         </form>
-        <button>Cancel</button>
+        <button type="button" class="btn-cancel" @click="$emit('close-modal')">
+          Cancel
+        </button>
         <button>Add</button>
 
         <div class="close" @click="$emit('close-modal')">
@@ -43,7 +45,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data: {},
+}
 </script>
 
 <style scoped>
@@ -108,7 +112,7 @@ button {
 }
 form {
   max-width: 420px;
-  margin:auto;
+  margin: auto;
   background: white;
   text-align: left;
   padding: 40px;

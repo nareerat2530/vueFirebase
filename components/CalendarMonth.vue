@@ -160,10 +160,6 @@ export default {
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate
     },
-    onclick() {
-      let banan = 'hoalllfdg'
-      console.log(banan)
-    },
   },
 }
 </script>
@@ -207,6 +203,5 @@ button {
   color: white;
   font-size: 14px;
   border-radius: 16px;
-  
 }
 </style>
