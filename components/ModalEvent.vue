@@ -7,26 +7,29 @@
             <label for="description">Description</label>
             <input
               id="description"
+              v-model="description"
               type="description"
               name="description"
               class="form-control"
             />
           </div>
           <div class="form-group">
-            <label for="description">Start Date</label>
+            <label for="startDate">Start Date</label>
             <input
-              id="description"
+              id="startDate"
+              v-model="startDate"
               type="date"
-              name="description"
+              name="startDate"
               class="form-control"
             />
           </div>
           <div class="form-group">
-            <label for="description">End-date</label>
+            <label for="endDate">End Date</label>
             <input
-              id="description"
+              id="endDate"
+              v-model="endDate"
               type="date"
-              name="description"
+              name="endDate"
               class="form-control"
             />
           </div>
@@ -34,7 +37,7 @@
         <button type="button" class="btn-cancel" @click="$emit('close-modal')">
           Cancel
         </button>
-        <button>Add</button>
+        <button @click="onAddEventForm">Add</button>
 
         <div class="close" @click="$emit('close-modal')">
           <img class="close-img" src="~/assets/close-icon.svg" alt="" />
@@ -45,8 +48,34 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  data: {},
+  data() {
+    return {
+      description: '',
+      startDate: '',
+      endDate: '',
+    }
+  },
+
+  methods: {
+    async onAddEventForm(e) {
+      e.preventDefault()
+      try {
+        const response = await axios.post(
+          'https://localhost:7101/api/Events/add',
+          {
+            description: this.description,
+            startDate: this.startDate,
+            endDate: this.endDate,
+          }
+        )
+      } catch (e) {
+        this.error = e.response.data.Message
+        console.log(e.response.data.Message)
+      }
+    },
+  },
 }
 </script>
 
