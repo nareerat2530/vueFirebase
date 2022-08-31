@@ -12,7 +12,7 @@
       />
       <button @click="modalEvent = true">Add Appointment</button>
 
-      <ModalEvent v-show="modalEvent" @close-modal="modalEvent = false" />
+      <ModalEvent v-show="modalEvent" @closeModal="modalEvent = false" />
     </div>
 
     <CalendarWeekdays />

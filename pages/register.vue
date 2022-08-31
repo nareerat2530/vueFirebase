@@ -115,7 +115,7 @@ export default {
           data
         )
        
-         if (response) {
+         if (response.status === 200) {
           this.$auth.loginWith("local", {
             data: {
               email: this.email,

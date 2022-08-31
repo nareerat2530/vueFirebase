@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-overlay" @click="$emit('close-modal')">
+    <div class="modal-overlay" @click="$emit('closeModal')">
       <div class="modal-window" @click.stop>
         <form>
           <div class="form-group">
@@ -34,12 +34,12 @@
             />
           </div>
         </form>
-        <button type="button" class="btn-cancel" @click="$emit('close-modal')">
+        <button type="button" class="btn-cancel" @click="$emit('closeModal')">
           Cancel
         </button>
         <button @click="onAddEventForm">Add</button>
 
-        <div class="close" @click="$emit('close-modal')">
+        <div class="close" @click="$emit('closeModal')">
           <img class="close-img" src="~/assets/close-icon.svg" alt="" />
         </div>
       </div>
@@ -70,9 +70,15 @@ export default {
             endDate: this.endDate,
           }
         )
+        if (response.status === 200) {
+          this.$emit('closeModal')
+        }
+        console.log(response)
       } catch (e) {
         this.error = e.response.data.Message
         console.log(e.response.data.Message)
+        console.log(this.description)
+        console.log(this.startDate)
       }
     },
   },
