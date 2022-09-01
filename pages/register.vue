@@ -66,6 +66,8 @@
 
 <script>
 import Notification from '~/components/Notification'
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 export default {
   components: {
     Notification,
@@ -116,21 +118,31 @@ export default {
         )
        
          if (response.status === 200) {
-          this.$auth.loginWith("local", {
+        
+            let res = await this.$auth.loginWith("local", {
             data: {
               email: this.email,
               password: this.password,
             },
           });
+            const data = res.data
+           
+            this.$auth.strategy.token.set(data.firebaseToken)
+            const token = this.$auth.strategy.token.get()
+            const decoded = jwt_decode(token)
+            const resp = await axios.get(
+            `https://localhost:7101/api/User/${decoded.user_id}`
+            )
+            
+            const user = this.$auth.setUser(resp.data)
+            
+            this.$router.push('/')
 
-          console.log(response.data)
-          this.$router.push("/");
-
+         
         }
-       
-      } catch (e) {
-        this.error = e.response.data.Message
-        console.log(e.response.data.Message)
+       } catch (e) {
+         this.error = e.response.data.Message
+        // console.log(e.response.data.Message)
       }
     },
   },

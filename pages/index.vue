@@ -28,21 +28,11 @@ export default {
     NavBar,
     
   },
-  // data() {
-  //  return {
-  //     token:"",
-  //     // decoded: "",
-  //     }
-  // },
-
   computed: {
     token() {
       const token = this.$auth.strategy.token.get()
       const decoded = jwt_decode(token)
-      // if(token){
-      //    decoded
-      //    console.log("what is going on",decoded)
-      // }
+      
       return decoded
     },
   },
