@@ -73,7 +73,6 @@ export default {
         if (response.status === 200) {
           this.$emit('closeModal')
         }
-        console.log(response)
       } catch (e) {
         this.error = e.response.data.Message
         console.log(e.response.data.Message)

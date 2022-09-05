@@ -1,27 +1,27 @@
 <template>
   <div>
     <li
-    
-    
+      @click="getEvents"
       class="calendar-day"
       :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
       }"
     >
-      <span>{{ label }}</span>
+      <span>{{ label }} </span>
+      <div>
+        <span></span>
+      </div>
     </li>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'CalendarMonthDayItem',
-
-  components: {},
 
   props: {
     day: {
@@ -39,21 +39,21 @@ export default {
       default: false,
     },
   },
- 
-methods:{
-  // console(e) {
-  //   console.log(e.target.innerHTML);
-  // },
-  async  getEvents()
-    {
-      const resp = await axios.get("https://localhost:7101/api/Events")
-        
-        console.log('are you decoded???', resp.data)
-        
-        
+
+  methods: {
+    async getEvents() {
+      const resp = await axios.get('https://localhost:7101/api/Events')
+
+      console.log(resp.data[0].startDate)
     },
-},
+  },
   computed: {
+    findEvent() {
+      const events = this.label
+
+      return events
+    },
+
     label() {
       return dayjs(this.day.date).format('D')
     },
