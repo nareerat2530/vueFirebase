@@ -18,15 +18,25 @@
     <CalendarWeekdays />
 
     <ol class="days-grid">
-      <CalendarMonthDayItem
+       <CalendarMonthDayItem 
+     
         v-for="day in days"
         :key="day.date"
         :day="day"
-        :is-today="day.date === today"
+        :is-today="day.date === today" 
+        
+        
+
+        
+       
+       
+        
       />
     </ol>
 
-    <div></div>
+    <div>
+
+    </div>
   </div>
 </template>
 
@@ -39,6 +49,7 @@ import CalendarDateSelector from './CalendarDateSelector'
 import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
+import axios from "axios"
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -53,18 +64,19 @@ export default {
     CalendarWeekdays,
     ModalEvent,
   },
-
+  
   data() {
     return {
       selectedDate: dayjs(),
       modalEvent: false,
+      events :[],
     }
   },
 
   computed: {
     days() {
       return [
-        ...this.previousMonthDays,
+         ...this.previousMonthDays,
         ...this.currentMonthDays,
         ...this.nextMonthDays,
       ]
@@ -151,15 +163,33 @@ export default {
       })
     },
   },
+  // created(){
+  //   const getAllevents = async() => {
+  //     const {data: events} = await axios.get("https://localhost:7101/api/Events")
+  //     console.log(data)
 
+  //   }
+  // },
   methods: {
+
+
+ 
+ 
+   
+   
     getWeekday(date) {
+      // console.log(date)
       return dayjs(date).weekday()
+      
     },
+    
 
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate
     },
+    
+      
+
   },
 }
 </script>

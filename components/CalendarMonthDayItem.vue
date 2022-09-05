@@ -1,6 +1,8 @@
 <template>
   <div>
     <li
+    
+    
       class="calendar-day"
       :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
@@ -14,6 +16,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import axios from 'axios';
 
 export default {
   name: 'CalendarMonthDayItem',
@@ -36,7 +39,20 @@ export default {
       default: false,
     },
   },
-
+ 
+methods:{
+  // console(e) {
+  //   console.log(e.target.innerHTML);
+  // },
+  async  getEvents()
+    {
+      const resp = await axios.get("https://localhost:7101/api/Events")
+        
+        console.log('are you decoded???', resp.data)
+        
+        
+    },
+},
   computed: {
     label() {
       return dayjs(this.day.date).format('D')
