@@ -10,7 +10,7 @@
     >
       <span>{{ label }} </span>
       <div>
-        <span></span>
+        <span>{{ findEvent }}</span>
       </div>
     </li>
   </div>
@@ -48,11 +48,7 @@ export default {
     },
   },
   computed: {
-    findEvent() {
-      const events = this.label
-
-      return events
-    },
+    findEvent() {},
 
     label() {
       return dayjs(this.day.date).format('D')
