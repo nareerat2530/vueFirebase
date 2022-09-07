@@ -19,11 +19,10 @@
 
     <ol class="days-grid">
       <CalendarMonthDayItem
-        v-for="day in days"
+        v-for="day in findEvent"
         :key="day.date"
         :day="day"
         :isToday="day.date === today"
-        :event="getEvents()"
       />
     </ol>
   </div>
@@ -58,8 +57,20 @@ export default {
     return {
       selectedDate: dayjs(),
       modalEvent: false,
-      events: '',
+      events: [],
     }
+  },
+  created() {
+    const getEvents = async () => {
+      const { data: events } = await axios.get(
+        'https://localhost:7101/api/Events'
+      )
+
+      console.log(events)
+
+      this.events = events
+    }
+    getEvents()
   },
 
   computed: {
@@ -69,6 +80,26 @@ export default {
         ...this.currentMonthDays,
         ...this.nextMonthDays,
       ]
+    },
+    findEvent() {
+      const events = this.events
+      const days = this.currentMonthDays
+      const newarray = []
+
+      days.map((d) => {
+        if (
+          events.some((e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date)
+        ) {
+          const event = events.find(
+            (e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date
+          )
+          newarray.push({ event, date: d.date })
+        } else {
+          newarray.push({ date: d.date })
+        }
+      })
+      console.log(newarray)
+      return newarray
     },
 
     today() {
@@ -87,9 +118,6 @@ export default {
 
     numberOfDaysInMonth() {
       return dayjs(this.selectedDate).daysInMonth()
-    },
-    showEventsOngrid() {
-      this.getEvents()
     },
 
     currentMonthDays() {
@@ -163,7 +191,6 @@ export default {
       // console.log(date)
       return dayjs(date).weekday()
     },
-
 
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate

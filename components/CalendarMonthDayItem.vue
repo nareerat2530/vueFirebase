@@ -5,13 +5,11 @@
       :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
-        'calendar-day--event': events,
+        //  'calendar-day--event': events,
       }"
     >
       <span>{{ label }} </span>
-      <div>
-        <span>{{findEvent}}</span>
-      </div>
+      <span v-if="this.day.event">{{ findEvent.description }} </span>
     </li>
   </div>
 </template>
@@ -21,21 +19,11 @@ import dayjs from 'dayjs'
 
 export default {
   name: 'CalendarMonthDayItem',
-  data() {
-    return{
-      TodayEvent : []
-    }
-    
-  },
 
   props: {
     day: {
       type: Object,
       required: true,
-    },
-    event:{
-      type: Object,
-      required: false
     },
 
     isCurrentMonth: {
@@ -48,30 +36,15 @@ export default {
       default: false,
     },
   },
- 
-  methods: {
-    async getEvents() {
-      const resp = await axios.get('https://localhost:7101/api/Events')
 
-      console.log(resp.data)
-
-      return resp.data;
-    },
-},
   computed: {
-    async findEvent() {
-      const events = await this.getEvents()
-      const isFound = events.find(event =>{
-        if(dayjs(event.startDate).format('YYYY-MM-DD') === this.day.date){
-          console.log(this.day.date)
-        }
-      })
-
-
-    },
-
     label() {
       return dayjs(this.day.date).format('D')
+    },
+    findEvent() {
+      if (this.day.event.description) {
+        return this.day.event
+      }
     },
   },
 }
@@ -96,10 +69,10 @@ export default {
   width: var(--day-label-size);
   height: var(--day-label-size);
 }
-.calendar-day--events {
+/* .calendar-day--events {
   background: red;
   cursor: pointer;
-}
+} */
 
 .calendar-day--not-current {
   background-color: var(--grey-100);

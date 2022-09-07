@@ -1,18 +1,12 @@
 <template>
   <div>
-    <button type="button" class="btn-cancel">
-          Edit
-        </button>
-        <button>Delete</button>
+    <button type="button" class="btn-cancel">Edit</button>
+    <button>Delete</button>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
-<style>
-
-</style>
+<style></style>
