@@ -10,6 +10,7 @@
 import dayjs from 'dayjs'
 export default {
   name: 'CalendarDateSelector',
+
   props: {
     currentDate: {
       type: String,

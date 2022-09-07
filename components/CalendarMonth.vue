@@ -17,16 +17,15 @@
 
     <CalendarWeekdays />
 
-    <ol class="days-grid">
+    <ol class="days-grid" @click="getEvents">
       <CalendarMonthDayItem
         v-for="day in days"
         :key="day.date"
         :day="day"
-        :is-today="day.date === today"
+        :isToday="day.date === today"
+        :event="getEvents()"
       />
     </ol>
-
-    <div></div>
   </div>
 </template>
 
@@ -59,7 +58,7 @@ export default {
     return {
       selectedDate: dayjs(),
       modalEvent: false,
-      events: [],
+      events: '',
     }
   },
 
@@ -75,7 +74,9 @@ export default {
     today() {
       return dayjs().format('YYYY-MM-DD')
     },
-
+    banan() {
+      return dayjs().format('YYYY-MM-DD')
+    },
     month() {
       return this.selectedDate.format('M')
     },
@@ -86,6 +87,9 @@ export default {
 
     numberOfDaysInMonth() {
       return dayjs(this.selectedDate).daysInMonth()
+    },
+    showEventsOngrid() {
+      this.getEvents()
     },
 
     currentMonthDays() {
@@ -155,8 +159,15 @@ export default {
   },
 
   methods: {
+    async getEvents() {
+      const resp = await axios.get('https://localhost:7101/api/Events', {
+        events: this.events,
+      })
+
+      console.log(resp.data[0].startDate)
+    },
+
     getWeekday(date) {
-      // console.log(date)
       return dayjs(date).weekday()
     },
 
