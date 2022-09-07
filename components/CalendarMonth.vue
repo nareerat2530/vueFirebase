@@ -17,7 +17,7 @@
 
     <CalendarWeekdays />
 
-    <ol class="days-grid" @click="getEvents">
+    <ol class="days-grid">
       <CalendarMonthDayItem
         v-for="day in days"
         :key="day.date"
@@ -159,17 +159,11 @@ export default {
   },
 
   methods: {
-    async getEvents() {
-      const resp = await axios.get('https://localhost:7101/api/Events', {
-        events: this.events,
-      })
-
-      console.log(resp.data[0].startDate)
-    },
-
     getWeekday(date) {
+      // console.log(date)
       return dayjs(date).weekday()
     },
+
 
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate
