@@ -8,7 +8,8 @@
         //  'calendar-day--event': events,
       }"
     >
-      <span>{{ label }} </span>
+      <div>
+        <span>{{ label }} </span>
       <span v-if="this.day.event">{{ findEvent.description }} </span>
     </li>
   </div>

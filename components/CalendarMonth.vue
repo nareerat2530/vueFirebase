@@ -57,7 +57,7 @@ export default {
     return {
       selectedDate: dayjs(),
       modalEvent: false,
-      events: [],
+      events: '',
     }
   },
   created() {
@@ -187,6 +187,14 @@ export default {
   },
 
   methods: {
+    async getEvents() {
+      const resp = await axios.get('https://localhost:7101/api/Events', {
+        events: this.events,
+      })
+
+      console.log(resp.data[0].startDate)
+    },
+
     getWeekday(date) {
       // console.log(date)
       return dayjs(date).weekday()
