@@ -5,13 +5,14 @@
       :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
-        //  'calendar-day--event': events,
+        
       }"
     >
-      <div>
+      
         <span>{{ label }} </span>
-      <span v-if="this.day.event">{{ findEvent.description }} </span>
+      <h5 v-if="this.day.event">{{ findEvent.description }} </h5> 
     </li>
+  
   </div>
 </template>
 
@@ -70,15 +71,17 @@ export default {
   width: var(--day-label-size);
   height: var(--day-label-size);
 }
-/* .calendar-day--events {
-  background: red;
-  cursor: pointer;
-} */
+.calendar-day > h5 {
+ font-size: 14px;
 
-.calendar-day--not-current {
+ border-bottom:10px 
+}
+
+
+/* .calendar-day--not-current {
   background-color: var(--grey-100);
   color: var(--grey-300);
-}
+} */
 
 .calendar-day--today {
   padding-top: 4px;

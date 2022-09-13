@@ -1,16 +1,12 @@
 <template>
   <div>
     <div class="container">
-     <h1>Welcome to your Profile</h1> 
-     <div>
-      <button><nuxt-link class="button" to="/calendar">Go to Calendar</nuxt-link></button><br>
- <button><nuxt-link class="button" to="/">Back to home</nuxt-link></button>
-     </div>
+      
 
     </div>
+    <CalendarMonth />
     
-    
-   
+    <button><nuxt-link class="button" to="/">Back</nuxt-link></button>
   </div>
 </template>
 <script>
