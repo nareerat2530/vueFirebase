@@ -83,8 +83,8 @@ export default {
     },
     findEvent() {
       const events = this.events
-      const days = this.currentMonthDays
-      const banan = this.days
+      const days = this.days
+
       const newarray = []
 
       days.map((d) => {
@@ -95,17 +95,12 @@ export default {
             (e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date
           )
           newarray.push({ event, date: d.date })
-           banan
         } else {
           newarray.push({ date: d.date })
-         
         }
       })
-    
-    
-      
+
       return newarray
-      
     },
 
     today() {
