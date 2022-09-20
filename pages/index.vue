@@ -73,6 +73,7 @@ li {
   justify-content: space-between;
   /* background-color: rgb(32, 26, 26); */
   padding: 20px;
-  margin: 30px;
+
+ 
 }
 </style>

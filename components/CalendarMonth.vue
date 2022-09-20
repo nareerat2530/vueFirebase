@@ -25,6 +25,7 @@
         :isToday="day.date === today"
       />
     </ol>
+   
   </div>
 </template>
 
@@ -83,9 +84,10 @@ export default {
     },
     findEvent() {
       const events = this.events
-      const days = this.currentMonthDays
-      const banan = this.days
-      const newarray = []
+      const days = this.days
+      
+     
+      const dayArray = []
 
       days.map((d) => {
         if (
@@ -94,26 +96,27 @@ export default {
           const event = events.find(
             (e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date
           )
-          newarray.push({ event, date: d.date })
-           banan
+          dayArray.push({ event, date: d.date })
+           
         } else {
-          newarray.push({ date: d.date })
+          dayArray.push({ date: d.date })
+         
+         
+          
          
         }
       })
     
     
       
-      return newarray
+      return dayArray
       
     },
 
     today() {
       return dayjs().format('YYYY-MM-DD')
     },
-    banan() {
-      return dayjs().format('YYYY-MM-DD')
-    },
+    
     month() {
       return this.selectedDate.format('M')
     },
@@ -213,11 +216,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .calendar-month {
   position: relative;
   background-color: white;
   border: solid 1px var(--grey-300);
+ 
+ 
+
 }
 .day-of-week {
   color: var(--grey-800);
@@ -253,4 +259,5 @@ button {
   font-size: 14px;
   border-radius: 16px;
 }
+
 </style>
