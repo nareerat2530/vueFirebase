@@ -8,7 +8,8 @@
         <button type="button" class="btn-cancel" @click="removeEvent" >
           Remove
         </button>
-        <button>Edit</button>
+        <button >Edit</button>
+        <button @click="$emit('closeModal')">Cancel</button>
 
      
       </div>
@@ -16,7 +17,8 @@
   </transition>
 </template>
 <script>
-  import {doc, getDoc} from "firebase/firestore"
+ import { doc, getDoc, getFirestore } from "firebase/firestore";
+  import {db} from '../firebaseConfig'
   import axios  from "axios"
 export default {
 
@@ -30,19 +32,28 @@ export default {
   methods:{
    
    async removeEvent(){
-   const documentId = '4fsCGYfCAbK012ZLTXBN';
-       
-      const resp = await axios.delete(`https://localhost:7101/api/Events?id=${documentId}`)
-      console.log(resp)
-    }
     
+const db = getFirestore();
+const querySnapshot = await getDoc(collection(db, "calEvent"));
 
-    
-  },
-  mounted(){
+
+  //  const documentId = '4fsCGYfCAbK012ZLTXBN';
+       
+  //     const resp = await axios.delete(`https://localhost:7101/api/Events?id=${documentId}`)
+      console.log(querySnapshot)
+    },
+
    
-  }
+},
+ 
 }
 </script>
 
-<style></style>
+<style scoped>
+.modal-window {
+ 
+  height: 200px;
+ 
+ 
+}
+</style>

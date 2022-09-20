@@ -58,6 +58,7 @@ body {
   --grey-800: #3e4e63;
   --grid-gap: 1px;
   --day-label-size: 20px;
+  
 }
 
 ol,
@@ -73,6 +74,7 @@ li {
   justify-content: space-between;
   /* background-color: rgb(32, 26, 26); */
   padding: 20px;
+ 
 
  
 }
