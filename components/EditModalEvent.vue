@@ -16,7 +16,7 @@
   </transition>
 </template>
 <script>
-  // import {doc, getDoc} from "firebase/firestore"
+  import {doc, getDoc} from "firebase/firestore"
   import axios  from "axios"
 export default {
 
