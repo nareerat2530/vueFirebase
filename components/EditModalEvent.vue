@@ -17,9 +17,12 @@
   </transition>
 </template>
 <script>
- import { doc, getDoc, getFirestore } from "firebase/firestore";
-  import {db} from '../firebaseConfig'
+
+
   import axios  from "axios"
+  import { doc, getDoc, deleteDoc } from "firebase/firestore";
+  import {db} from "../firebaseInit"
+ 
 export default {
 
   props:{
@@ -28,19 +31,25 @@ export default {
         required: false,
     },
   },
+  data(){
+    return{
+      eventId: ""
+    }
+    
+  },
 
   methods:{
    
-   async removeEvent(){
-    
-const db = getFirestore();
-const querySnapshot = await getDoc(collection(db, "calEvent"));
+   async removeEvent(id){
+
+   
+const documentId = doc(db, "calEvent", id)
+ const resp = await axios.delete(`https://localhost:7101/api/Events?id=${documentId}`)
+     console.log(id)
 
 
-  //  const documentId = '4fsCGYfCAbK012ZLTXBN';
-       
-  //     const resp = await axios.delete(`https://localhost:7101/api/Events?id=${documentId}`)
-      console.log(querySnapshot)
+ 
+
     },
 
    
