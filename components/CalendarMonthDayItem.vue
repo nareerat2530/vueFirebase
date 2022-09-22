@@ -5,45 +5,38 @@
       :class="{
         'calendar-day--not-current': !day.isCurrentMonth,
         'calendar-day--today': isToday,
-        
       }"
     >
-     
-      
-        <span>{{ label }} </span>
-      <h5 class="events"
-     
-       v-if="day.event"
-        @click="newModelEvent(findEvent.description)" 
-        >{{ findEvent.description }}  </h5> 
+      <span>{{ label }} </span>
+      <h5 class="events" v-if="day.event" @click="newModelEvent(findEvent)">
+        {{ findEvent.description }}
+      </h5>
     </li>
 
-   
-    <EditModalEvent v-show="showModalEvent" @closeModal="showModalEvent = false" :modalEvent ="modalEvent" />
-  
+    <EditModalEvent
+      v-show="showModalEvent"
+      @closeModal="showModalEvent = false"
+      :modalEvent="modalEvent"
+    />
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import EditModelEvent from "./EditModalEvent.vue"
-
-
+import EditModelEvent from './EditModalEvent.vue'
 
 export default {
   name: 'CalendarMonthDayItem',
 
-  
-  components:{
+  components: {
     EditModelEvent,
-   
-},
-data(){
-  return{
-    showModalEvent: false,
-    modalEvent :"",
-  }
-},
+  },
+  data() {
+    return {
+      showModalEvent: false,
+      modalEvent: {},
+    }
+  },
 
   props: {
     day: {
@@ -60,7 +53,11 @@ data(){
       type: Boolean,
       default: false,
     },
- 
+    findEvent:{
+      type: Object,
+      require: true,
+    },
+  
   },
 
   computed: {
@@ -68,20 +65,19 @@ data(){
       return dayjs(this.day.date).format('D')
     },
     findEvent() {
-      if (this.day.event.description) {
+     
         return this.day.event
-      }
+      
+      
     },
   },
   methods: {
-    newModelEvent(event){
-      
-      this.showModalEvent = true;
-      this.modalEvent = event;
-      // console.log(event)
-
-    }
-  }
+    newModelEvent(event) {
+      this.showModalEvent = true
+      this.modalEvent = event
+     console.log(event)
+    },
+  },
 }
 </script>
 
@@ -110,7 +106,7 @@ data(){
   text-align: right;
   cursor: pointer;
 } */
-.events{
+.events {
   font-size: 16px;
 
   text-align: right;
@@ -122,7 +118,6 @@ data(){
   position: absolute;
   bottom: 0;
   right: 1rem;
-  
 }
 
 .calendar-day--not-current {

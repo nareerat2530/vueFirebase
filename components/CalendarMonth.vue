@@ -83,7 +83,7 @@ export default {
       ]
     },
     findEvent() {
-      const events = this.events
+    
       const days = this.days
       
      
@@ -91,9 +91,9 @@ export default {
 
       days.map((d) => {
         if (
-          events.some((e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date)
+          this.events.some((e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date)
         ) {
-          const event = events.find(
+          const event = this.events.find(
             (e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date
           )
           dayArray.push({ event, date: d.date })
@@ -108,7 +108,7 @@ export default {
       })
     
     
-      
+      console.log(dayArray)
       return dayArray
       
     },
