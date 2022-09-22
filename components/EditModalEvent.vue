@@ -33,7 +33,6 @@ export default {
         `https://localhost:7101/api/Events?id=${this.modalEvent.id}`
       )
       this.$emit('closeModal')
-     
     },
   },
 }
