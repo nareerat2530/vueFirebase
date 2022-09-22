@@ -12,31 +12,14 @@
         {{ findEvent.description }}
       </h5>
     </li>
-
-    <EditModalEvent
-      v-show="showModalEvent"
-      @closeModal="showModalEvent = false"
-      :modalEvent="modalEvent"
-    />
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import EditModelEvent from './EditModalEvent.vue'
 
 export default {
   name: 'CalendarMonthDayItem',
-
-  components: {
-    EditModelEvent,
-  },
-  data() {
-    return {
-      showModalEvent: false,
-      modalEvent: {},
-    }
-  },
 
   props: {
     day: {
@@ -53,11 +36,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    findEvent:{
-      type: Object,
-      require: true,
-    },
-  
   },
 
   computed: {
@@ -65,17 +43,9 @@ export default {
       return dayjs(this.day.date).format('D')
     },
     findEvent() {
-     
+      if (this.day.event.description) {
         return this.day.event
-      
-      
-    },
-  },
-  methods: {
-    newModelEvent(event) {
-      this.showModalEvent = true
-      this.modalEvent = event
-     console.log(event)
+      }
     },
   },
 }
@@ -100,30 +70,20 @@ export default {
   width: var(--day-label-size);
   height: var(--day-label-size);
 }
-/* .calendar-day > h5 {
- font-size: 16px;
- padding-top: 60px;
-  text-align: right;
-  cursor: pointer;
-} */
+.calendar-day > h5 {
+  font-size: 14px;
+
+  border-bottom: 10px;
+}
+
 .events {
-  font-size: 16px;
-
-  text-align: right;
-  cursor: pointer;
-  padding: 3px;
-  background-color: #58bae4;
-  color: white;
-  border-radius: 5px;
   position: absolute;
-  bottom: 0;
-  right: 1rem;
 }
 
-.calendar-day--not-current {
+/* .calendar-day--not-current {
   background-color: var(--grey-100);
-  color: var(--grey-800);
-}
+  color: var(--grey-300);
+} */
 
 .calendar-day--today {
   padding-top: 4px;

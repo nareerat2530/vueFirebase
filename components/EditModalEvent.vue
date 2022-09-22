@@ -29,7 +29,7 @@ export default {
 
   methods: {
     async removeEvent() {
-      const resp = await axios.delete(
+      await axios.delete(
         `https://localhost:7101/api/Events?id=${this.modalEvent.id}`
       )
       this.$emit('closeModal')
