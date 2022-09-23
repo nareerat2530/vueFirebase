@@ -30,7 +30,7 @@
         <button type="button" class="btn-cancel" @click="$emit('closeModal')">
           Cancel
         </button>
-        <button @click="$emit('submitForm', form)">Add</button>
+        <button @click="addEvent()">Add</button>
 
         <div class="close" @click="$emit('closeModal')">
           <img class="close-img" src="~/assets/close-icon.svg" alt="" />
@@ -51,6 +51,11 @@ export default {
         startDate: '',
       },
     }
+  },
+  methods: {
+    addEvent() {
+      this.$emit('banana', this.form)
+    },
   },
 
   // methods: {

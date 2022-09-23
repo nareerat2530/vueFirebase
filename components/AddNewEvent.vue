@@ -1,30 +1,34 @@
 <template>
   <div>
-    <ModalEvent @submitForm="onAddEventForm" />
+    <ModalEvent @banana="(u) => onAddEventForm(u)" />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 import ModalEvent from './ModalEvent.vue'
 export default {
   name: 'AddNewEvent',
   components: { ModalEvent },
-
+  data() {
+    return {
+      description: '',
+      startDate: '',
+      tezt: 'a',
+    }
+  },
   methods: {
-    async onAddEventForm(e) {
-      e.preventDefault()
-      console.log('why not working')
-
+    async onAddEventForm(u) {
       try {
         const response = await axios.post(
           'https://localhost:7101/api/Events/add',
           {
-            form: {
-              description: '',
-              startDate: '',
-            },
+            description: u.description,
+            startDate: u.startDate,
           }
         )
+        console.log(response)
 
         if (response.status === 200) {
           this.$emit('closeModal')

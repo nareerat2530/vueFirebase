@@ -11,8 +11,8 @@
         @dateSelected="selectDate"
       />
       <button @click="modalEvent = true">Add Appointment</button>
-
-      <ModalEvent v-show="modalEvent" @closeModal="modalEvent = false" />
+      <AddNewEvent v-show="modalEvent" @closeModal="modalEvent = false" />
+      <!-- <ModalEvent  /> -->
     </div>
 
     <CalendarWeekdays />
@@ -38,6 +38,7 @@ import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
 import axios from 'axios'
+import AddNewEvent from './AddNewEvent.vue'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -51,6 +52,8 @@ export default {
     CalendarMonthDayItem,
     CalendarWeekdays,
     ModalEvent,
+    AddNewEvent,
+    AddNewEvent,
   },
 
   data() {
@@ -65,8 +68,6 @@ export default {
       const { data: events } = await axios.get(
         'https://localhost:7101/api/Events'
       )
-
-     
 
       this.events = events
     }
