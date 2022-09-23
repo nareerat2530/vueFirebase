@@ -12,11 +12,18 @@
         {{ findEvent.description }}
       </h5>
     </li>
+
+    <EditModalEvent
+      v-show="showModalEvent"
+      @closeModal="showModalEvent = false"
+      :modalEvent="modalEvent"
+    />
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
+import EditModelEvent from './EditModalEvent.vue'
 
 export default {
   name: 'CalendarMonthDayItem',
@@ -36,6 +43,8 @@ export default {
       type: Boolean,
       default: false,
     },
+
+
   },
 
   computed: {
@@ -45,7 +54,16 @@ export default {
     findEvent() {
       if (this.day.event.description) {
         return this.day.event
-      }
+
+
+    },
+
+  },
+  methods: {
+    newModelEvent(event) {
+      this.showModalEvent = true
+      this.modalEvent = event
+     console.log(event)
     },
   },
 }

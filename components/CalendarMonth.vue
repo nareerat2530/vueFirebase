@@ -66,7 +66,7 @@ export default {
         'https://localhost:7101/api/Events'
       )
 
-      console.log(events)
+     
 
       this.events = events
     }

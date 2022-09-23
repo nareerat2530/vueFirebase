@@ -7,37 +7,30 @@
             <label for="description">Description</label>
             <input
               id="description"
-              v-model="description"
+              v-model="form.description"
               type="description"
               name="description"
               class="form-control"
+              placeholder="description"
+              required=""
             />
           </div>
           <div class="form-group">
-            <label for="startDate">Start Date</label>
+            <label for="startDate">Date</label>
             <input
               id="startDate"
-              v-model="startDate"
+              v-model="form.startDate"
               type="date"
               name="startDate"
               class="form-control"
-            />
-          </div>
-          <div class="form-group">
-            <label for="endDate">End Date</label>
-            <input
-              id="endDate"
-              v-model="endDate"
-              type="date"
-              name="endDate"
-              class="form-control"
+              required=""
             />
           </div>
         </form>
         <button type="button" class="btn-cancel" @click="$emit('closeModal')">
           Cancel
         </button>
-        <button @click="onAddEventForm">Add</button>
+        <button @click="$emit('submitForm', form)">Add</button>
 
         <div class="close" @click="$emit('closeModal')">
           <img class="close-img" src="~/assets/close-icon.svg" alt="" />
@@ -50,41 +43,43 @@
 <script>
 import axios from 'axios'
 export default {
+  name: 'ModalEvent',
   data() {
     return {
-      description: '',
-      startDate: '',
-      endDate: '',
+      form: {
+        description: '',
+        startDate: '',
+      },
     }
   },
 
-  methods: {
-    async onAddEventForm(e) {
-      e.preventDefault()
-      try {
-        const response = await axios.post(
-          'https://localhost:7101/api/Events/add',
-          {
-            description: this.description,
-            startDate: this.startDate,
-            endDate: this.endDate,
-          }
-        )
-        if (response.status === 200) {
-          this.$emit('closeModal')
-        }
-      } catch (e) {
-        this.error = e.response.data.Message
-        console.log(e.response.data.Message)
-        console.log(this.description)
-        console.log(this.startDate)
-      }
-    },
-  },
+  // methods: {
+  //   async onAddEventForm(e) {
+  //     e.preventDefault()
+  //     try {
+  //       const response = await axios.post(
+  //         'https://localhost:7101/api/Events/add',
+  //         {
+  //           description: this.description,
+  //           startDate: this.startDate,
+  //         }
+  //       )
+  //       console.log('not working')
+  //       if (response.status === 200) {
+  //         this.$emit('closeModal')
+  //       }
+  //     } catch (e) {
+  //       this.error = e.response.data.Message
+  //       console.log(e.response.data.Message)
+  //       console.log(this.description)
+  //       console.log(this.startDate)
+  //     }
+  //   },
+  // },
 }
 </script>
 
-<style >
+<style>
 .modal-overlay {
   position: fixed;
   top: 0;
