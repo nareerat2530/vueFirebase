@@ -24,17 +24,24 @@ export default {
   },
   methods: {
     async updateEvent(u) {
-      const banan = (this.description = u.description)
-      console.log(banan)
-      await axios.put(
-        `https://localhost:7101/api/Events?id=${this.modalEvent.id}`,
-        {
-          description: u.description,
-          startDate: u.startDate,
-        }
-      )
+      try {
+        const response = await axios.put(
+          `https://localhost:7101/api/Events?id=${this.modalEvent.id}`,
+          {
+            description: u.description,
+            startDate: u.startDate,
+          }
+        )
+        console.log(response)
 
-      this.$emit('closeModal')
+        if (response.status === 200) {
+          this.$emit('closeModal')
+        }
+      } catch (e) {
+        this.error = e.response.data.Message
+        console.log(e.response.data.Message)
+        console.log(this.modalEvent)
+      }
     },
   },
 }

@@ -49,6 +49,7 @@ export default {
       this.$emit('closeModal')
       console.log(this.modalEvent)
     },
+
     getModalEvent() {
       this.showModalEvent = true
     },

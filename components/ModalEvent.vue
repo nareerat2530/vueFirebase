@@ -55,6 +55,18 @@ export default {
     addEvent() {
       this.$emit('banana', this.form)
     },
+    async updateEvent(u) {
+      console.log(this.modalEvent)
+      await axios.put(
+        `https://localhost:7101/api/Events?id=${this.modalEvent.id}`,
+        {
+          description: u.description,
+          startDate: u.startDate,
+        }
+      )
+
+      this.$emit('closeModal')
+    },
   },
 }
 </script>
