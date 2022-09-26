@@ -15,7 +15,6 @@ export default {
     return {
       description: '',
       startDate: '',
-      tezt: 'a',
     }
   },
   methods: {

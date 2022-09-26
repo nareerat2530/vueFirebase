@@ -8,11 +8,7 @@
       }"
     >
       <span>{{ label }} </span>
-      <h5
-        class="events"
-        v-if="day.event"
-        @click="newModelEvent(findEvent.description)"
-      >
+      <h5 class="events" v-if="day.event" @click="newModelEvent(findEvent)">
         {{ findEvent.description }}
       </h5>
     </li>
@@ -73,7 +69,7 @@ export default {
     newModelEvent(event) {
       this.showModalEvent = true
       this.modalEvent = event
-      // console.log(event)
+      console.log(event)
     },
   },
 }

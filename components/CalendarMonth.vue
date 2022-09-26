@@ -12,7 +12,7 @@
       />
       <button @click="modalEvent = true">Add Appointment</button>
       <AddNewEvent v-show="modalEvent" @closeModal="modalEvent = false" />
-      <!-- <ModalEvent  /> -->
+      <!-- <EditEvent /> -->
     </div>
 
     <CalendarWeekdays />
@@ -39,6 +39,7 @@ import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
 import axios from 'axios'
 import AddNewEvent from './AddNewEvent.vue'
+import EditEvent from './EditEvent.vue'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -54,6 +55,7 @@ export default {
     ModalEvent,
     AddNewEvent,
     AddNewEvent,
+    EditEvent,
   },
 
   data() {
