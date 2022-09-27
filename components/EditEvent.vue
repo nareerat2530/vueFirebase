@@ -1,6 +1,8 @@
 <template>
-  <div class="modal-window">
-    <ModalEvent @banana="(u) => updateEvent(u)" />
+  <div class="modal-overlay">
+    <div class="modal-window" @click.stop>
+      <ModalEvent @banana="(u) => updateEvent(u)" />
+    </div>
   </div>
 </template>
 
@@ -21,7 +23,11 @@ export default {
       type: Object,
       required: false,
     },
+    showModalEvent: {
+      type: Boolean,
+    },
   },
+
   methods: {
     async updateEvent(u) {
       try {
@@ -32,10 +38,10 @@ export default {
             startDate: u.startDate,
           }
         )
-        console.log(response)
-
         if (response.status === 200) {
           this.$emit('closeModal')
+
+          console.log(this.showModalEvent)
         }
       } catch (e) {
         this.error = e.response.data.Message

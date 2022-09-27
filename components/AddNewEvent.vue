@@ -27,7 +27,6 @@ export default {
             startDate: u.startDate,
           }
         )
-        console.log(response)
 
         if (response.status === 200) {
           this.$emit('closeModal')
