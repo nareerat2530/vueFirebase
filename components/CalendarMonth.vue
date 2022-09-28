@@ -10,8 +10,10 @@
         :selected-date="selectedDate"
         @dateSelected="selectDate"
       />
-      <button @click="modalEvent = true">Add Appointment</button>
-      <AddNewEvent v-show="modalEvent" @closeModal="modalEvent = false" />
+      <button @click="$store.commit('setShowAddEventModal', true)">
+        Add Appointment
+      </button>
+      <!-- <AddNewEvent v-show="modalEvent" @closeModal="modalEvent = false" /> -->
       <!-- <EditEvent /> -->
     </div>
 
@@ -65,6 +67,12 @@ export default {
       events: [],
     }
   },
+  watch: {
+    events(value) {
+      console.log(value)
+    },
+  },
+
   created() {
     const getEvents = async () => {
       const { data: events } = await axios.get(
@@ -86,14 +94,13 @@ export default {
     },
     findEvent() {
       const days = this.days
+      const events = this.events
 
       const dayArray = []
 
       days.map((d) => {
         if (
-          this.events.some(
-            (e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date
-          )
+          events.some((e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date)
         ) {
           const event = this.events.find(
             (e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date
@@ -104,7 +111,7 @@ export default {
         }
       })
 
-      console.log(dayArray)
+      console.log(events)
       return dayArray
     },
 
@@ -196,7 +203,8 @@ export default {
         events: this.events,
       })
 
-      console.log(resp.data[0].startDate)
+      console.log(resp)
+      console.log(this.findEvent)
     },
 
     getWeekday(date) {

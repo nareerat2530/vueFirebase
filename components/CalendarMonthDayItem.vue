@@ -13,11 +13,12 @@
       </h5>
     </li>
 
-    <EditModalEvent
-      v-show="showModalEvent"
+    <!-- <EditModalEvent
+      v-if="showModalEvent"
       @closeModal="showModalEvent = false"
       :modalEvent="modalEvent"
-    />
+      :showModalEvent="showModalEvent"
+    /> -->
   </div>
 </template>
 
@@ -67,6 +68,8 @@ export default {
   },
   methods: {
     newModelEvent(event) {
+      this.$store.commit('setCurrentEventEdit', this.findEvent)
+      this.$store.commit('setShowEditEventModal', true)
       this.showModalEvent = true
       this.modalEvent = event
       console.log(event)

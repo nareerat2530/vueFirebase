@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ModalEvent @banana="(u) => onAddEventForm(u)" />
+    <!-- <ModalEvent @banana="(u) => onAddEventForm(u)" /> -->
   </div>
 </template>
 

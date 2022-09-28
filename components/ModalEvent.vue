@@ -1,43 +1,43 @@
 <template>
-  <transition name="modal-fade">
-    <div class="modal-overlay" @click="$emit('closeModal')">
-      <div class="modal-window" @click.stop>
-        <form>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <input
-              id="description"
-              v-model="form.description"
-              type="description"
-              name="description"
-              class="form-control"
-              placeholder="description"
-              required=""
-            />
-          </div>
-          <div class="form-group">
-            <label for="startDate">Date</label>
-            <input
-              id="startDate"
-              v-model="form.startDate"
-              type="date"
-              name="startDate"
-              class="form-control"
-              required=""
-            />
-          </div>
-        </form>
-        <button type="button" class="btn-cancel" @click="$emit('closeModal')">
-          Cancel
-        </button>
-        <button @click="addEvent()">Add</button>
-
-        <div class="close" @click="$emit('closeModal')">
-          <img class="close-img" src="~/assets/close-icon.svg" alt="" />
+  <!-- <transition name="modal-fade"> -->
+  <div class="modal-overlay" @click="$emit('closeModal')">
+    <div class="modal-window" @click.stop>
+      <form>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            id="description"
+            v-model="form.description"
+            type="description"
+            name="description"
+            class="form-control"
+            placeholder="description"
+            required=""
+          />
         </div>
+        <div class="form-group">
+          <label for="startDate">Date</label>
+          <input
+            id="startDate"
+            v-model="form.startDate"
+            type="date"
+            name="startDate"
+            class="form-control"
+            required=""
+          />
+        </div>
+      </form>
+      <button type="button" class="btn-cancel" @click="$emit('closeModal')">
+        Cancel
+      </button>
+      <button @click="addEvent()">Add</button>
+
+      <div class="close" @click="$emit('closeModal')">
+        <img class="close-img" src="~/assets/close-icon.svg" alt="" />
       </div>
     </div>
-  </transition>
+  </div>
+  <!-- </transition> -->
 </template>
 
 <script>

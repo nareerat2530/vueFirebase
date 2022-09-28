@@ -1,9 +1,6 @@
 <template>
-  <div class="modal-overlay">
-    <div class="modal-window" @click.stop>
-      <ModalEvent @banana="(u) => updateEvent(u)" />
-    </div>
-  </div>
+  <div></div>
+  <!-- <ModalEvent @banana="(u) => updateEvent(u)" /> -->
 </template>
 
 <script>
@@ -23,9 +20,6 @@ export default {
       type: Object,
       required: false,
     },
-    showModalEvent: {
-      type: Boolean,
-    },
   },
 
   methods: {
@@ -40,13 +34,10 @@ export default {
         )
         if (response.status === 200) {
           this.$emit('closeModal')
-
-          console.log(this.showModalEvent)
         }
       } catch (e) {
         this.error = e.response.data.Message
         console.log(e.response.data.Message)
-        console.log(this.modalEvent)
       }
     },
   },
