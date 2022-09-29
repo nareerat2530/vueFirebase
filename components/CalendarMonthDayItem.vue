@@ -72,7 +72,6 @@ export default {
       this.$store.commit('setShowEditEventModal', true)
       this.showModalEvent = true
       this.modalEvent = event
-      console.log(event)
     },
   },
 }

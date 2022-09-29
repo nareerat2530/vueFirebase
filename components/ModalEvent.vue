@@ -7,7 +7,7 @@
           <label for="description">Description</label>
           <input
             id="description"
-            v-model="form.description"
+            v-model="description"
             type="description"
             name="description"
             class="form-control"
@@ -19,7 +19,7 @@
           <label for="startDate">Date</label>
           <input
             id="startDate"
-            v-model="form.startDate"
+            v-model="startDate"
             type="date"
             name="startDate"
             class="form-control"
@@ -30,7 +30,7 @@
       <button type="button" class="btn-cancel" @click="$emit('closeModal')">
         Cancel
       </button>
-      <button @click="addEvent()">Add</button>
+      <button @click="onAddEventForm()">Save</button>
 
       <div class="close" @click="$emit('closeModal')">
         <img class="close-img" src="~/assets/close-icon.svg" alt="" />
@@ -41,20 +41,49 @@
 </template>
 
 <script>
+  import axios from 'axios'
 export default {
   name: 'ModalEvent',
   data() {
     return {
-      form: {
+      
         description: '',
         startDate: '',
-      },
+   
     }
+  
   },
+
   methods: {
     addEvent() {
       this.$emit('banana', this.form)
     },
+    async onAddEventForm(u) {
+      // try {
+      //   const response = await axios.post(
+      //     'https://localhost:7101/api/Events/add', {
+            
+         
+      //       description: this.description,
+      //       eventDate: this.startDate,
+
+      //     }
+         
+      //   )
+
+      //   if (response.status === 200) {
+      //     this.$emit('closeModal')
+      //   }
+      // } catch (e) {
+      //   this.error = e.response.data.Message
+      //   console.log(e.response.data.Message)
+      //   console.log(this.description)
+      //   console.log(this.startDate)
+      // }
+      console.log(this.$store.getters.showAddEventModal ? 'addEvent': 'editEvent')
+      //this.$store.dispatch(this.$store.getters.showAddEventModal ? 'addEvent': 'editEvent')
+    },
+    
   },
 }
 </script>

@@ -42,6 +42,7 @@ import ModalEvent from './ModalEvent.vue'
 import axios from 'axios'
 import AddNewEvent from './AddNewEvent.vue'
 import EditEvent from './EditEvent.vue'
+import { mapGetters } from 'vuex'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -67,24 +68,23 @@ export default {
       events: [],
     }
   },
-  watch: {
-    events(value) {
-      console.log(value)
-    },
-  },
+
 
   created() {
     const getEvents = async () => {
-      const { data: events } = await axios.get(
+       await axios.get(
         'https://localhost:7101/api/Events'
       )
+      this.$store.dispatch({type:'fetchEvents'})
 
-      this.events = events
+      this.events = this.$store.getters.getEvents
     }
     getEvents()
   },
 
+
   computed: {
+   
     days() {
       return [
         ...this.previousMonthDays,
@@ -94,24 +94,25 @@ export default {
     },
     findEvent() {
       const days = this.days
-      const events = this.events
+      const events = this.$store.getters.getEvents
 
       const dayArray = []
 
       days.map((d) => {
-        if (
-          events.some((e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date)
+        if(events){
+          if (
+          events.some((e) => dayjs(e.eventDate).format('YYYY-MM-DD') === d.date)
         ) {
           const event = this.events.find(
-            (e) => dayjs(e.startDate).format('YYYY-MM-DD') === d.date
+            (e) => dayjs(e.eventDate).format('YYYY-MM-DD') === d.date
           )
           dayArray.push({ event, date: d.date })
         } else {
           dayArray.push({ date: d.date })
         }
+        }
+  
       })
-
-      console.log(events)
       return dayArray
     },
 
@@ -198,14 +199,7 @@ export default {
   },
 
   methods: {
-    async getEvents() {
-      const resp = await axios.get('https://localhost:7101/api/Events', {
-        events: this.events,
-      })
-
-      console.log(resp)
-      console.log(this.findEvent)
-    },
+  
 
     getWeekday(date) {
       // console.log(date)

@@ -8,15 +8,11 @@
       <div class="modal-window" @click.stop>
         <h2>{{ currentEventEdit?.description }}</h2>
 
-        <button type="button" class="btn-cancel" @click="removeEvent">
+        <button type="button" class="btn-cancel" @click="deleteEvent">
           Remove
         </button>
         <button @click="editModal">Edit</button>
-        <!-- <EditEvent
-          v-show="editModal"
-          @closeModal="editModal = false"
-          :modalEvent="modalEvent"
-        /> -->
+       
 
         <button @click="$emit('closeModal')">Cancel</button>
       </div>
@@ -45,14 +41,34 @@ export default {
   methods: {
     editModal() {
       this.$store.commit('closeAllModals')
-      this.$store.commit('setShowEventModal', true)
+      this.$store.commit('setShowEventModal',true)
+      
     },
-    async removeEvent() {
-      await axios.delete(
-        `https://localhost:7101/api/Events?id=${this.modalEvent.id}`
-      )
-      this.$emit('closeModal')
-      console.log(this.modalEvent)
+    async deleteEvent() {
+      // await axios.delete(
+      //   `https://localhost:7101/api/Events?id=${this.modalEvent.id}`
+      // )
+     this.$emit('closeModal')
+      console.log(this.$store.getters.currentEventEdit);
+      this.$store.dispatch('deleteEvent', this.$store.getters.currentEventEdit.id)
+    },
+    async updateEvent(u) {
+      try {
+        const response = await axios.put(
+          `https://localhost:7101/api/Events?id=${this.modalEvent.id}`,
+          {
+            description: u.description,
+            startDate: u.startDate,
+          }
+        )
+        
+        if (response.status === 200) {
+          this.$emit('closeModal')
+        }
+      } catch (e) {
+        this.error = e.response.data.Message
+        console.log(e.response.data.Message)
+      }
     },
   },
 }
