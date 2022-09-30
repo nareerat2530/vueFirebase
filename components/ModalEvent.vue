@@ -41,34 +41,29 @@
 </template>
 
 <script>
-  import axios from 'axios'
 export default {
   name: 'ModalEvent',
   data() {
     return {
-      
-        description: '',
-        startDate: '',
-   
+      description: '',
+      startDate: '',
     }
-  
   },
 
   methods: {
     addEvent() {
       this.$emit('banana', this.form)
     },
-    async onAddEventForm(u) {
+    async onAddEventForm() {
       // try {
       //   const response = await axios.post(
       //     'https://localhost:7101/api/Events/add', {
-            
-         
+
       //       description: this.description,
       //       eventDate: this.startDate,
 
       //     }
-         
+
       //   )
 
       //   if (response.status === 200) {
@@ -80,10 +75,11 @@ export default {
       //   console.log(this.description)
       //   console.log(this.startDate)
       // }
-      console.log(this.$store.getters.showAddEventModal ? 'addEvent': 'editEvent')
+      console.log(
+        this.$store.getters.showAddEventModal ? 'addEvent' : 'editEvent'
+      )
       //this.$store.dispatch(this.$store.getters.showAddEventModal ? 'addEvent': 'editEvent')
     },
-    
   },
 }
 </script>

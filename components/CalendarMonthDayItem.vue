@@ -12,13 +12,6 @@
         {{ findEvent.description }}
       </h5>
     </li>
-
-    <!-- <EditModalEvent
-      v-if="showModalEvent"
-      @closeModal="showModalEvent = false"
-      :modalEvent="modalEvent"
-      :showModalEvent="showModalEvent"
-    /> -->
   </div>
 </template>
 

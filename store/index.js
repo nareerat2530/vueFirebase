@@ -5,6 +5,10 @@ export const state = () => ({
   showEditEventModal: false,
   currentEventEdit: null,
   events: [],
+  form: {
+    description: '',
+    startDate: '',
+  },
 })
 
 export const getters = {
@@ -12,7 +16,9 @@ export const getters = {
   showEditEventModal: (state) => state.showEditEventModal,
   currentEventEdit: (state) => state.currentEventEdit,
   showAddEventModal: (state) => state.showAddEventModal,
-  getEvents: (state) => state.events
+  getEvents: (state) => state.events,
+  description: (state) => state.form.description,
+  startDate: (state) => state.form.startDate,
 }
 
 export const mutations = {
@@ -33,29 +39,44 @@ export const mutations = {
     state.showEditEventModal = false
     state.showAddEventModal = false
   },
-  set_events(state, events) {
+  setEvents(state, events) {
     state.events = events
-  }
+  },
+  setForm(state, form) {
+    ;(state.form = form.description), (state.form = form.startDate)
+  },
 }
 
 export const actions = {
   async fetchEvents({ commit }) {
     try {
       const data = await axios.get('https://localhost:7101/api/Events')
-      commit('set_events', data.data)
-    }
-    catch (error) {
+      commit('setEvents', data.data)
+    } catch (error) {
       alert(error)
       console.log(error)
     }
   },
   async deleteEvent({ commit }, payload) {
-    await axios.delete(
-      `https://localhost:7101/api/Events?id=${payload}`
-    )
-    // this.$emit('closeModal')
+    await axios.delete(`https://localhost:7101/api/Events?id=${payload}`)
+
     console.log('iam a payload', payload)
   },
-
-
+  // async updateEvent({ commit }, form) {
+  //   try {
+  //     const response = await axios.put(
+  //       `https://localhost:7101/api/Events?id=${payload}`,
+  //       {
+  //         description: form.description,
+  //         startDate: form.startDate,
+  //       }
+  //     )
+  //     if (response.status === 200) {
+  //       this.$emit('closeModal')
+  //     }
+  //   } catch (e) {
+  //     this.error = e.response.data.Message
+  //     console.log(e.response.data.Message)
+  //   }
+  // },
 }

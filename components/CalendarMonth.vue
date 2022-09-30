@@ -13,8 +13,6 @@
       <button @click="$store.commit('setShowAddEventModal', true)">
         Add Appointment
       </button>
-      <!-- <AddNewEvent v-show="modalEvent" @closeModal="modalEvent = false" /> -->
-      <!-- <EditEvent /> -->
     </div>
 
     <CalendarWeekdays />
@@ -40,9 +38,6 @@ import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
 import axios from 'axios'
-import AddNewEvent from './AddNewEvent.vue'
-import EditEvent from './EditEvent.vue'
-import { mapGetters } from 'vuex'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -56,9 +51,6 @@ export default {
     CalendarMonthDayItem,
     CalendarWeekdays,
     ModalEvent,
-    AddNewEvent,
-    AddNewEvent,
-    EditEvent,
   },
 
   data() {
@@ -69,22 +61,17 @@ export default {
     }
   },
 
-
   created() {
     const getEvents = async () => {
-       await axios.get(
-        'https://localhost:7101/api/Events'
-      )
-      this.$store.dispatch({type:'fetchEvents'})
+      await axios.get('https://localhost:7101/api/Events')
+      this.$store.dispatch({ type: 'fetchEvents' })
 
       this.events = this.$store.getters.getEvents
     }
     getEvents()
   },
 
-
   computed: {
-   
     days() {
       return [
         ...this.previousMonthDays,
@@ -99,19 +86,20 @@ export default {
       const dayArray = []
 
       days.map((d) => {
-        if(events){
+        if (events) {
           if (
-          events.some((e) => dayjs(e.eventDate).format('YYYY-MM-DD') === d.date)
-        ) {
-          const event = this.events.find(
-            (e) => dayjs(e.eventDate).format('YYYY-MM-DD') === d.date
-          )
-          dayArray.push({ event, date: d.date })
-        } else {
-          dayArray.push({ date: d.date })
+            events.some(
+              (e) => dayjs(e.eventDate).format('YYYY-MM-DD') === d.date
+            )
+          ) {
+            const event = this.events.find(
+              (e) => dayjs(e.eventDate).format('YYYY-MM-DD') === d.date
+            )
+            dayArray.push({ event, date: d.date })
+          } else {
+            dayArray.push({ date: d.date })
+          }
         }
-        }
-  
       })
       return dayArray
     },
@@ -199,8 +187,6 @@ export default {
   },
 
   methods: {
-  
-
     getWeekday(date) {
       // console.log(date)
       return dayjs(date).weekday()
