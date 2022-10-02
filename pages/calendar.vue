@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <CalendarMonth />
+      <MainCalendar />
       <ModalEvent
         v-show="showAddEventModal"
         @closeModal="closeModals"
@@ -23,12 +23,12 @@
   </div>
 </template>
 <script>
-import CalendarMonth from '../components/CalendarMonth.vue'
+import MainCalendar from '../components/MainCalendar.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    CalendarMonth,
+    MainCalendar,
   },
   computed: {
     ...mapGetters([

@@ -15,13 +15,13 @@
 </template>
 <script>
 
-import CalendarMonth from '../components/CalendarMonth.vue'
+import MainCalendar from '../components/MainCalendar.vue'
 
 export default {
 
   components: {
     
-   CalendarMonth,
+    MainCalendar,
   },
   
 }

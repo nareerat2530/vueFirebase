@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     newModelEvent(event) {
-      this.$store.commit('setCurrentEventEdit', this.findEvent)
+      this.$store.commit('setCurrentAppointment', this.findEvent)
       this.$store.commit('setShowEditEventModal', true)
       this.showModalEvent = true
       this.modalEvent = event

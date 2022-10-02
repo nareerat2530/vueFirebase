@@ -1,19 +1,21 @@
 <template>
   <transition name="modal-fade">
     <div
-      v-show="currentEventEdit !== null"
+      v-show="getCurrentAppointment !== null"
       class="modal-overlay"
-      @click="$emit('closeModal')"
+      @click="onModalClose"
     >
       <div class="modal-window" @click.stop>
-        <h2>{{ currentEventEdit?.description }}</h2>
+        <h2>{{ getCurrentAppointment?.description }}</h2>
 
         <button type="button" class="btn-cancel" @click="deleteEvent">
           Remove
         </button>
-        <button @click="updateEvent">Edit</button>
+        <button @click="editeEventButtonClick">Edit</button>
 
-        <button @click="$emit('closeModal')">Cancel</button>
+        <button type="button" class="btn-cancel" @click="onModalClose">
+        Cancel
+      </button>
       </div>
     </div>
   </transition>
@@ -33,39 +35,27 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['currentEventEdit']),
+    ...mapGetters(['getCurrentAppointment']),
   },
   methods: {
-    // editModal() {
-    //   this.$store.commit('closeAllModals')
-    //   this.$store.commit('setShowEventModal', true)
-    // },
-    async deleteEvent() {
+     deleteEvent() {
       this.$emit('closeModal')
-      console.log(this.$store.getters.currentEventEdit)
+      
       this.$store.dispatch(
         'deleteEvent',
-        this.$store.getters.currentEventEdit.id
+        this.$store.getters.getCurrentAppointment.id
       )
     },
-    async updateEvent(u) {
-      // try {
-      //   const response = await axios.put(
-      //     `https://localhost:7101/api/Events?id=${this.modalEvent.id}`,
-      //     {
-      //       description: u.description,
-      //       startDate: u.startDate,
-      //     }
-      //   )
-      //   if (response.status === 200) {
-      //     this.$store.commit('closeAllModals')
-      //   }
-      // } catch (e) {
-      //   this.error = e.response.data.Message
-      //   console.log(e.response.data.Message)
-      // }
-      console.log('hello')
-      console.log(this.$store.getters.form)
+    onModalClose(){
+
+      this.$store.commit('setCurrentAppointment', {})
+      this.$emit('closeModal')
+    },
+     editeEventButtonClick() {
+
+
+      this.$store.commit('closeAllModals')
+      this.$store.commit('setShowEventModal', true)
     },
   },
 }

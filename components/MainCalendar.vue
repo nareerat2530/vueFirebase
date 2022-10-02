@@ -43,7 +43,7 @@ dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
 
 export default {
-  name: 'CalendarMonth',
+  name: 'MainCalendar',
 
   components: {
     CalendarDateIndicator,

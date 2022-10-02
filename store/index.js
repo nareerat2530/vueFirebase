@@ -5,20 +5,24 @@ export const state = () => ({
   showEditEventModal: false,
   currentEventEdit: null,
   events: [],
-  form: {
-    description: '',
-    startDate: '',
+  Appointment: {
+    id: '',
+
+    description: "",
+    eventDate: ""
+
   },
 })
 
 export const getters = {
   showEventModal: (state) => state.showEventModal,
   showEditEventModal: (state) => state.showEditEventModal,
-  currentEventEdit: (state) => state.currentEventEdit,
+
   showAddEventModal: (state) => state.showAddEventModal,
   getEvents: (state) => state.events,
-  description: (state) => state.form.description,
-  startDate: (state) => state.form.startDate,
+
+  getCurrentAppointment: (state) => state.Appointment,
+
 }
 
 export const mutations = {
@@ -31,26 +35,33 @@ export const mutations = {
   setShowEditEventModal(state, payload) {
     state.showEditEventModal = payload
   },
-  setCurrentEventEdit(state, payload) {
-    state.currentEventEdit = payload
+  setCurrentAppointment(state, payload) {
+    state.Appointment = payload
   },
   closeAllModals(state) {
     state.showEventModal = false
     state.showEditEventModal = false
     state.showAddEventModal = false
   },
-  setEvents(state, events) {
-    state.events = events
+  setEvents(state, payload) {
+    state.events = payload
   },
-  setForm(state, form) {
-    ;(state.form = form.description), (state.form = form.startDate)
+  updateDescription(state, payload) {
+    state.Appointment.description = payload
   },
+
+  updateEventDate(state, payload) {
+    state.Appointment.eventDate = payload
+  }
+
+
 }
 
 export const actions = {
   async fetchEvents({ commit }) {
     try {
       const data = await axios.get('https://localhost:7101/api/Events')
+      console.log(data.data)
       commit('setEvents', data.data)
     } catch (error) {
       alert(error)
@@ -58,25 +69,41 @@ export const actions = {
     }
   },
   async deleteEvent({ commit }, payload) {
-    await axios.delete(`https://localhost:7101/api/Events?id=${payload}`)
 
-    console.log('iam a payload', payload)
+    const response = await axios.delete(`https://localhost:7101/api/Events?id=${payload}`)
+
+    if (response.status === 200) {
+      commit('setCurrentAppointment', {})
+    }
   },
-  // async updateEvent({ commit }, form) {
-  //   try {
-  //     const response = await axios.put(
-  //       `https://localhost:7101/api/Events?id=${payload}`,
-  //       {
-  //         description: form.description,
-  //         startDate: form.startDate,
-  //       }
-  //     )
-  //     if (response.status === 200) {
-  //       this.$emit('closeModal')
-  //     }
-  //   } catch (e) {
-  //     this.error = e.response.data.Message
-  //     console.log(e.response.data.Message)
-  //   }
-  // },
+  async updateEvent({ commit }, payload) {
+    console.log('the payload', payload)
+    const response = await axios.put(
+      `https://localhost:7101/api/Events?id=${payload.id}`, payload
+    )
+    if (response.status === 200) {
+
+      commit('setCurrentAppointment', {})
+      commit('closeAllModals')
+    }
+
+  },
+  async addNewEvent({ commit }, payload) {
+
+    console.log('the payload', payload)
+    try {
+      const response = await axios.post(
+        `https://localhost:7101/api/Events/add`,
+        payload
+      )
+      if (response.status === 200) {
+
+        commit('setCurrentAppointment', {})
+        commit('closeAllModals')
+      }
+    } catch (e) {
+
+      console.log(e)
+    }
+  },
 }

@@ -1,13 +1,15 @@
 <template>
   <!-- <transition name="modal-fade"> -->
-  <div class="modal-overlay" @click="$emit('closeModal')">
+  <div class="modal-overlay" @click="onModalClose">
     <div class="modal-window" @click.stop>
+     
       <form>
         <div class="form-group">
           <label for="description">Description</label>
           <input
             id="description"
-            v-model="description"
+            :value= "Appointment.description"
+            @change="setDescription"
             type="description"
             name="description"
             class="form-control"
@@ -16,23 +18,25 @@
           />
         </div>
         <div class="form-group">
-          <label for="startDate">Date</label>
+          <label for="eventDate">Date</label>
           <input
-            id="startDate"
-            v-model="startDate"
+            id="eventDate"
+            :value="eventDate"
+            @input="setDate"
             type="date"
+            placeholder="Appointment.eventDate"
             name="startDate"
             class="form-control"
             required=""
           />
         </div>
       </form>
-      <button type="button" class="btn-cancel" @click="$emit('closeModal')">
+      <button type="button" class="btn-cancel" @click="onModalClose">
         Cancel
       </button>
-      <button @click="onAddEventForm()">Save</button>
+      <button @click="onSaveButtonClick">Save</button>
 
-      <div class="close" @click="$emit('closeModal')">
+      <div class="close" @click="onModalClose">
         <img class="close-img" src="~/assets/close-icon.svg" alt="" />
       </div>
     </div>
@@ -41,45 +45,51 @@
 </template>
 
 <script>
-export default {
+  import { mapState } from 'vuex'
+  import dayjs from 'dayjs'
+  export default {
   name: 'ModalEvent',
-  data() {
-    return {
-      description: '',
-      startDate: '',
-    }
-  },
+
+  computed: {
+  ...mapState({
+    Appointment: state => state.Appointment,
+    
+    eventDate: state => dayjs(state.Appointment.eventDate).format('YYYY-MM-DD'),
+    
+
+
+  })
+},
+
 
   methods: {
-    addEvent() {
-      this.$emit('banana', this.form)
+    onModalClose(){
+
+      this.$store.commit('setCurrentAppointment', {})
+      this.$emit('closeModal')
+
     },
-    async onAddEventForm() {
-      // try {
-      //   const response = await axios.post(
-      //     'https://localhost:7101/api/Events/add', {
+    setDescription(e){
+      this.$store.commit('updateDescription',e.target.value)
 
-      //       description: this.description,
-      //       eventDate: this.startDate,
+    },
+    setDate(e){
+      this.$store.commit('updateEventDate',e.target.value)
 
-      //     }
+    },
 
-      //   )
 
-      //   if (response.status === 200) {
-      //     this.$emit('closeModal')
-      //   }
-      // } catch (e) {
-      //   this.error = e.response.data.Message
-      //   console.log(e.response.data.Message)
-      //   console.log(this.description)
-      //   console.log(this.startDate)
-      // }
+
+    onSaveButtonClick() {
       console.log(
-        this.$store.getters.showAddEventModal ? 'addEvent' : 'editEvent'
+        this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
       )
-      //this.$store.dispatch(this.$store.getters.showAddEventModal ? 'addEvent': 'editEvent')
+      console.log(this.$store.getters.getCurrentAppointment)
+      this.$store.dispatch(this.$store.getters.showAddEventModal ? 'addNewEvent': 'updateEvent',this.$store.getters.getCurrentAppointment)
+    
+     
     },
+   
   },
 }
 </script>
