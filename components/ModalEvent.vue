@@ -84,7 +84,9 @@
       console.log(
         this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
       )
-      console.log(this.$store.getters.getCurrentAppointment)
+      const currentEventDate = this.$store.getters.getCurrentAppointment.eventDate
+      console.log(currentEventDate);
+      this.$store.commit('updateEventDate',new Date(currentEventDate).toISOString());
       this.$store.dispatch(this.$store.getters.showAddEventModal ? 'addNewEvent': 'updateEvent',this.$store.getters.getCurrentAppointment)
     
      

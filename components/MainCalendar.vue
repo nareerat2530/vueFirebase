@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar-month">
+  <div class="calendar-month" :key="componentKey">
     <div class="calendar-month-header">
       <CalendarDateIndicator
         :selected-date="selectedDate"
@@ -38,6 +38,7 @@ import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
 import axios from 'axios'
+import { ref } from 'vue';
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -58,12 +59,12 @@ export default {
       selectedDate: dayjs(),
       modalEvent: false,
       events: [],
+      componentKey: 0,
     }
   },
 
   created() {
     const getEvents = async () => {
-      await axios.get('https://localhost:7101/api/Events')
       this.$store.dispatch({ type: 'fetchEvents' })
 
       this.events = this.$store.getters.getEvents
@@ -78,6 +79,11 @@ export default {
         ...this.currentMonthDays,
         ...this.nextMonthDays,
       ]
+    },
+    count () {
+      return this.$store.state.events.length
+      // Or return basket.getters.fruitsCount
+      // (depends on your design decisions).
     },
     findEvent() {
       const days = this.days
@@ -185,8 +191,22 @@ export default {
       })
     },
   },
+  watch: {
+    count (newCount, oldCount) {
+      // Our fancy notification (2).
+      console.log('iam the new cunt',newCount)
+      this.$store.dispatch({ type: 'fetchEvents' })
+      this.events = this.$store.getters.getEvents
+      console.log('iam the new cunt',newCount)
+       forceRerender()
+      
+    }
+  },
 
   methods: {
+    forceRerender() {
+      this.componentKey += 1;
+    },
     getWeekday(date) {
       // console.log(date)
       return dayjs(date).weekday()

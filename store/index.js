@@ -52,7 +52,11 @@ export const mutations = {
 
   updateEventDate(state, payload) {
     state.Appointment.eventDate = payload
+  },
+  addEvent(state, payload) {
+    state.events = [...state.events, payload]
   }
+
 
 
 }
@@ -77,11 +81,13 @@ export const actions = {
     }
   },
   async updateEvent({ commit }, payload) {
-    console.log('the payload', payload)
+
+    payload.eventDate = new Date(payload.eventDate).toISOString();
+
     const response = await axios.put(
       `https://localhost:7101/api/Events?id=${payload.id}`, payload
     )
-    if (response.status === 200) {
+    if (response.status === 204) {
 
       commit('setCurrentAppointment', {})
       commit('closeAllModals')
@@ -90,7 +96,7 @@ export const actions = {
   },
   async addNewEvent({ commit }, payload) {
 
-    console.log('the payload', payload)
+    console.log(payload)
     try {
       const response = await axios.post(
         `https://localhost:7101/api/Events/add`,
