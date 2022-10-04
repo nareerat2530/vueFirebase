@@ -1,6 +1,6 @@
 <template>
-  <div class="calendar-month" :key="componentKey">
-    <div class="calendar-month-header">
+  <div class="calendar-month" >
+    <div class="calendar-month-header" >
       <CalendarDateIndicator
         :selected-date="selectedDate"
         class="calendar-month-header-selected-month"
@@ -18,13 +18,14 @@
     <CalendarWeekdays />
 
     <ol class="days-grid">
-      <CalendarMonthDayItem
+      <CalendarMonthDayItem 
         v-for="day in findEvent"
         :key="day.date"
         :day="day"
         :isToday="day.date === today"
       />
     </ol>
+
   </div>
 </template>
 
@@ -58,17 +59,23 @@ export default {
     return {
       selectedDate: dayjs(),
       modalEvent: false,
-      events: [],
+      events: this.$store.getters.getEvents,
       componentKey: 0,
     }
   },
 
   created() {
     const getEvents = async () => {
-      this.$store.dispatch({ type: 'fetchEvents' })
+     await this.$store.dispatch({ type: 'fetchEvents' })
 
       this.events = this.$store.getters.getEvents
     }
+    if(this.findEvent.length >0){
+      console.log('am i defined or not bitch',this.events)
+    }else{
+      console.log('no you are not')
+    }
+ 
     getEvents()
   },
 
@@ -82,8 +89,7 @@ export default {
     },
     count () {
       return this.$store.state.events.length
-      // Or return basket.getters.fruitsCount
-      // (depends on your design decisions).
+     
     },
     findEvent() {
       const days = this.days
@@ -193,20 +199,13 @@ export default {
   },
   watch: {
     count (newCount, oldCount) {
-      // Our fancy notification (2).
-      console.log('iam the new cunt',newCount)
-      this.$store.dispatch({ type: 'fetchEvents' })
-      this.events = this.$store.getters.getEvents
-      console.log('iam the new cunt',newCount)
-       forceRerender()
-      
+
+      console.log(`We have ${newCount} fruits now, yay!`)
     }
   },
 
   methods: {
-    forceRerender() {
-      this.componentKey += 1;
-    },
+
     getWeekday(date) {
       // console.log(date)
       return dayjs(date).weekday()

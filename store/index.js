@@ -65,7 +65,6 @@ export const actions = {
   async fetchEvents({ commit }) {
     try {
       const data = await axios.get('https://localhost:7101/api/Events')
-      console.log(data.data)
       commit('setEvents', data.data)
     } catch (error) {
       alert(error)

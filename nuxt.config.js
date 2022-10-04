@@ -19,7 +19,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/persistedstate.client.js' },
+
     { src: '~/plugins/vue-TextareaAutosize.js' },
     { src: '~/plugins/firebase' },
   ],
@@ -38,7 +38,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    
+
   ],
   auth: {
     strategies: {
