@@ -7,10 +7,10 @@ export const state = () => ({
   events: [],
   Appointment: {
     id: '',
-
     description: '',
-    eventDate: '',
+    eventDate: new Date().toISOString(),
   },
+  addEvent: null,
 })
 
 export const getters = {
@@ -21,6 +21,7 @@ export const getters = {
   getEvents: (state) => state.events,
 
   getCurrentAppointment: (state) => state.Appointment,
+  getAddEvent: (state) => state.addEvent,
 }
 
 export const mutations = {
@@ -70,7 +71,6 @@ export const actions = {
     const response = await axios.delete(
       `https://localhost:7101/api/Events?id=${payload}`
     )
-
     if (response.status === 200) {
       commit('setCurrentAppointment', {})
     }
@@ -88,7 +88,6 @@ export const actions = {
     }
   },
   async addNewEvent({ commit }, payload) {
-    console.log(payload)
     try {
       const response = await axios.post(
         `https://localhost:7101/api/Events/add`,

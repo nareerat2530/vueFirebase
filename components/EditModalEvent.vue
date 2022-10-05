@@ -24,7 +24,6 @@
 import ModalEvent from './ModalEvent.vue'
 
 import { mapGetters } from 'vuex'
-import dayjs from 'dayjs'
 
 export default {
   components: {
@@ -40,7 +39,7 @@ export default {
   },
   methods: {
     deleteEvent() {
-      this.$emit('closeModal')
+      this.$store.commit('closeAllModals')
 
       this.$store.dispatch(
         'deleteEvent',
@@ -55,7 +54,6 @@ export default {
       this.$store.commit('closeAllModals')
       this.$store.commit('setShowEventModal', true)
       console.log(this.$store.getters.getCurrentAppointment.eventDate)
-      console.log(dayjs().format().substring(0, 13))
     },
   },
 }

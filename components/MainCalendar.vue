@@ -37,8 +37,6 @@ import CalendarDateSelector from './CalendarDateSelector'
 import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
-import axios from 'axios'
-import { ref } from 'vue'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -59,7 +57,7 @@ export default {
       selectedDate: dayjs(),
       modalEvent: false,
       events: this.$store.getters.getEvents,
-      componentKey: 0,
+      // componentKey: 0,
     }
   },
 
@@ -197,7 +195,8 @@ export default {
   },
   watch: {
     count(newCount, oldCount) {
-      console.log(`We have ${newCount} fruits now, yay!`)
+      console.log(`We have ${newCount} events, yay!`)
+      console.log(this.$store.state.addEvent)
     },
   },
 
