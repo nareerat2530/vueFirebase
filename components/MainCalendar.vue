@@ -196,7 +196,7 @@ export default {
   watch: {
     count(newCount, oldCount) {
       console.log(`We have ${newCount} events, yay!`)
-      console.log(this.$store.state.addEvent)
+     
     },
   },
 

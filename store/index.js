@@ -53,7 +53,7 @@ export const mutations = {
     state.Appointment.eventDate = payload
   },
   addEvent(state, payload) {
-    state.events = [...state.events, payload]
+    state.events.push(payload)
   },
 }
 
