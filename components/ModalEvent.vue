@@ -2,13 +2,12 @@
   <!-- <transition name="modal-fade"> -->
   <div class="modal-overlay" @click="onModalClose">
     <div class="modal-window" @click.stop>
-     
       <form>
         <div class="form-group">
           <label for="description">Description</label>
           <input
             id="description"
-            :value= "Appointment.description"
+            :value="Appointment.description"
             @change="setDescription"
             type="description"
             name="description"
@@ -45,53 +44,48 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import dayjs from 'dayjs'
-  export default {
+import { mapState } from 'vuex'
+import dayjs from 'dayjs'
+export default {
   name: 'ModalEvent',
 
   computed: {
-  ...mapState({
-    Appointment: state => state.Appointment,
-    
-    eventDate: state => dayjs(state.Appointment.eventDate).format('YYYY-MM-DD'),
-    
+    ...mapState({
+      Appointment: (state) => state.Appointment,
 
-
-  })
-},
-
+      eventDate: (state) =>
+        dayjs(state.Appointment.eventDate).format('YYYY-MM-DD'),
+    }),
+  },
 
   methods: {
-    onModalClose(){
-
+    onModalClose() {
       this.$store.commit('setCurrentAppointment', {})
       this.$emit('closeModal')
-
     },
-    setDescription(e){
-      this.$store.commit('updateDescription',e.target.value)
-
+    setDescription(e) {
+      this.$store.commit('updateDescription', e.target.value)
     },
-    setDate(e){
-      this.$store.commit('updateEventDate',e.target.value)
-
+    setDate(e) {
+      this.$store.commit('updateEventDate', e.target.value)
     },
-
-
 
     onSaveButtonClick() {
       console.log(
         this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
       )
-      const currentEventDate = this.$store.getters.getCurrentAppointment.eventDate
-      console.log(currentEventDate);
-      this.$store.commit('updateEventDate',new Date(currentEventDate).toISOString());
-      this.$store.dispatch(this.$store.getters.showAddEventModal ? 'addNewEvent': 'updateEvent',this.$store.getters.getCurrentAppointment)
-    
-     
+      const currentEventDate =
+        this.$store.getters.getCurrentAppointment.eventDate
+      console.log(currentEventDate)
+      this.$store.commit(
+        'updateEventDate',
+        new Date(currentEventDate).toISOString()
+      )
+      this.$store.dispatch(
+        this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent',
+        this.$store.getters.getCurrentAppointment
+      )
     },
-   
   },
 }
 </script>

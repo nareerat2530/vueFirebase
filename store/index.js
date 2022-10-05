@@ -8,9 +8,8 @@ export const state = () => ({
   Appointment: {
     id: '',
 
-    description: "",
-    eventDate: ""
-
+    description: '',
+    eventDate: '',
   },
 })
 
@@ -22,7 +21,6 @@ export const getters = {
   getEvents: (state) => state.events,
 
   getCurrentAppointment: (state) => state.Appointment,
-
 }
 
 export const mutations = {
@@ -55,10 +53,7 @@ export const mutations = {
   },
   addEvent(state, payload) {
     state.events = [...state.events, payload]
-  }
-
-
-
+  },
 }
 
 export const actions = {
@@ -72,29 +67,27 @@ export const actions = {
     }
   },
   async deleteEvent({ commit }, payload) {
-
-    const response = await axios.delete(`https://localhost:7101/api/Events?id=${payload}`)
+    const response = await axios.delete(
+      `https://localhost:7101/api/Events?id=${payload}`
+    )
 
     if (response.status === 200) {
       commit('setCurrentAppointment', {})
     }
   },
   async updateEvent({ commit }, payload) {
-
-    payload.eventDate = new Date(payload.eventDate).toISOString();
+    payload.eventDate = new Date(payload.eventDate).toISOString()
 
     const response = await axios.put(
-      `https://localhost:7101/api/Events?id=${payload.id}`, payload
+      `https://localhost:7101/api/Events?id=${payload.id}`,
+      payload
     )
     if (response.status === 204) {
-
       commit('setCurrentAppointment', {})
       commit('closeAllModals')
     }
-
   },
   async addNewEvent({ commit }, payload) {
-
     console.log(payload)
     try {
       const response = await axios.post(
@@ -102,12 +95,10 @@ export const actions = {
         payload
       )
       if (response.status === 200) {
-
         commit('setCurrentAppointment', {})
         commit('closeAllModals')
       }
     } catch (e) {
-
       console.log(e)
     }
   },

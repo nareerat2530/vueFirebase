@@ -11,11 +11,11 @@
         <button type="button" class="btn-cancel" @click="deleteEvent">
           Remove
         </button>
-        <button @click="editeEventButtonClick">Edit</button>
+        <button @click="editEventButtonClick">Edit</button>
 
         <button type="button" class="btn-cancel" @click="onModalClose">
-        Cancel
-      </button>
+          Cancel
+        </button>
       </div>
     </div>
   </transition>
@@ -24,6 +24,7 @@
 import ModalEvent from './ModalEvent.vue'
 
 import { mapGetters } from 'vuex'
+import dayjs from 'dayjs'
 
 export default {
   components: {
@@ -38,24 +39,23 @@ export default {
     ...mapGetters(['getCurrentAppointment']),
   },
   methods: {
-     deleteEvent() {
+    deleteEvent() {
       this.$emit('closeModal')
-      
+
       this.$store.dispatch(
         'deleteEvent',
         this.$store.getters.getCurrentAppointment.id
       )
     },
-    onModalClose(){
-
+    onModalClose() {
       this.$store.commit('setCurrentAppointment', {})
       this.$emit('closeModal')
     },
-     editeEventButtonClick() {
-
-
+    editEventButtonClick() {
       this.$store.commit('closeAllModals')
       this.$store.commit('setShowEventModal', true)
+      console.log(this.$store.getters.getCurrentAppointment.eventDate)
+      console.log(dayjs().format().substring(0, 13))
     },
   },
 }

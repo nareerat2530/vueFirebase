@@ -1,6 +1,6 @@
 <template>
-  <div class="calendar-month" >
-    <div class="calendar-month-header" >
+  <div class="calendar-month">
+    <div class="calendar-month-header">
       <CalendarDateIndicator
         :selected-date="selectedDate"
         class="calendar-month-header-selected-month"
@@ -18,14 +18,13 @@
     <CalendarWeekdays />
 
     <ol class="days-grid">
-      <CalendarMonthDayItem 
+      <CalendarMonthDayItem
         v-for="day in findEvent"
         :key="day.date"
         :day="day"
         :isToday="day.date === today"
       />
     </ol>
-
   </div>
 </template>
 
@@ -39,7 +38,7 @@ import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
 import axios from 'axios'
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -66,16 +65,16 @@ export default {
 
   created() {
     const getEvents = async () => {
-     await this.$store.dispatch({ type: 'fetchEvents' })
+      await this.$store.dispatch({ type: 'fetchEvents' })
 
       this.events = this.$store.getters.getEvents
     }
-    if(this.findEvent.length >0){
-      console.log('am i defined or not bitch',this.events)
-    }else{
-      console.log('no you are not')
+    if (this.findEvent.length > 0) {
+      console.log('am i defined or not bitch', this.events)
+    } else {
+      console.log('no you are not a bitch')
     }
- 
+
     getEvents()
   },
 
@@ -87,9 +86,8 @@ export default {
         ...this.nextMonthDays,
       ]
     },
-    count () {
+    count() {
       return this.$store.state.events.length
-     
     },
     findEvent() {
       const days = this.days
@@ -198,14 +196,12 @@ export default {
     },
   },
   watch: {
-    count (newCount, oldCount) {
-
+    count(newCount, oldCount) {
       console.log(`We have ${newCount} fruits now, yay!`)
-    }
+    },
   },
 
   methods: {
-
     getWeekday(date) {
       // console.log(date)
       return dayjs(date).weekday()
