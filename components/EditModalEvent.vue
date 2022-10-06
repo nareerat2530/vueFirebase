@@ -53,7 +53,7 @@ export default {
     editEventButtonClick() {
       this.$store.commit('closeAllModals')
       this.$store.commit('setShowEventModal', true)
-      console.log(this.$store.getters.getCurrentAppointment.eventDate)
+     
     },
   },
 }

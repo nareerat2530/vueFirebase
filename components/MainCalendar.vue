@@ -193,18 +193,13 @@ export default {
       })
     },
   },
-  watch: {
-    count(newCount, oldCount) {
-      console.log(`We have ${newCount} events, yay!`)
-     
-    },
-  },
 
   methods: {
     getWeekday(date) {
       // console.log(date)
       return dayjs(date).weekday()
     },
+ 
 
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate

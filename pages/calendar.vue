@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <MainCalendar />
+      <MainCalendar :key="calenderKey" />
       <ModalEvent
         v-show="showAddEventModal"
         @closeModal="closeModals"
@@ -30,16 +30,34 @@ export default {
   components: {
     MainCalendar,
   },
+  data () {
+    return {
+      calenderKey:1
+    }
+  },
   computed: {
     ...mapGetters([
       'showEventModal',
       'showEditEventModal',
       'showAddEventModal',
     ]),
+    count() {
+      return this.$store.state.events.length
+    },
   },
   methods: {
     closeModals() {
       this.$store.commit('closeAllModals', false)
+    },
+    forceRerender () {
+      this.calenderKey += 1;  
+    }
+  },
+  watch: {
+    count(newCount, oldCount) {
+     
+      this.forceRerender();
+     
     },
   },
 }

@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 export const state = () => ({
   showEventModal: false,
   showAddEventModal: false,
@@ -9,8 +8,9 @@ export const state = () => ({
   Appointment: {
     id: '',
     description: '',
-    eventDate: '',
+    eventDate: new Date().toISOString(),
   },
+
 })
 
 export const getters = {
@@ -21,6 +21,7 @@ export const getters = {
   getEvents: (state) => state.events,
 
   getCurrentAppointment: (state) => state.Appointment,
+  getAddEvent: (state) => state.events
 }
 
 export const mutations = {
@@ -52,10 +53,11 @@ export const mutations = {
     state.Appointment.eventDate = payload
   },
   addEvent(state, payload) {
-    state.events.push(payload)
+    state.events = [...state.events, payload];
   },
   removeEvent(state, payload) {
-    state.events = state.event.splice(state.events.indexof(payload), 1)
+    const i = state.events.map(item => item.id).indexOf(payload);
+    state.events.splice(i, 1);
   },
 }
 
@@ -64,7 +66,6 @@ export const actions = {
     try {
       const response = await axios.get('https://localhost:7101/api/Events')
       commit('setEvents', response.data)
-      console.log('dont understand at all', response.data)
     } catch (error) {
       alert(error)
       console.log(error)
@@ -76,8 +77,7 @@ export const actions = {
         `https://localhost:7101/api/Events/add`,
         payload
       )
-      commit('addEvent', response.data)
-      console.log('why it nothing', response.data)
+      commit('addEvent', payload)
 
       if (response.status === 200) {
         commit('setCurrentAppointment', {})
@@ -91,10 +91,10 @@ export const actions = {
     const response = await axios.delete(
       `https://localhost:7101/api/Events?id=${payload}`
     )
-    commit('removeEvent')
-    console.log(payload)
+
     if (response.status === 200) {
       commit('setCurrentAppointment', {})
+      commit('removeEvent', payload);
     }
   },
   async updateEvent({ commit }, payload) {
