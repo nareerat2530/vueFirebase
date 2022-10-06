@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 export const state = () => ({
   showEventModal: false,
   showAddEventModal: false,
@@ -8,9 +9,8 @@ export const state = () => ({
   Appointment: {
     id: '',
     description: '',
-    eventDate: new Date().toISOString(),
+    eventDate: '',
   },
-  addEvent: null,
 })
 
 export const getters = {
@@ -21,7 +21,6 @@ export const getters = {
   getEvents: (state) => state.events,
 
   getCurrentAppointment: (state) => state.Appointment,
-  getAddEvent: (state) => state.addEvent,
 }
 
 export const mutations = {
@@ -55,22 +54,45 @@ export const mutations = {
   addEvent(state, payload) {
     state.events.push(payload)
   },
+  removeEvent(state, payload) {
+    state.events = state.event.splice(state.events.indexof(payload), 1)
+  },
 }
 
 export const actions = {
   async fetchEvents({ commit }) {
     try {
-      const data = await axios.get('https://localhost:7101/api/Events')
-      commit('setEvents', data.data)
+      const response = await axios.get('https://localhost:7101/api/Events')
+      commit('setEvents', response.data)
+      console.log('dont understand at all', response.data)
     } catch (error) {
       alert(error)
       console.log(error)
+    }
+  },
+  async addNewEvent({ commit }, payload) {
+    try {
+      const response = await axios.post(
+        `https://localhost:7101/api/Events/add`,
+        payload
+      )
+      commit('addEvent', response.data)
+      console.log('why it nothing', response.data)
+
+      if (response.status === 200) {
+        commit('setCurrentAppointment', {})
+        commit('closeAllModals')
+      }
+    } catch (e) {
+      console.log(e)
     }
   },
   async deleteEvent({ commit }, payload) {
     const response = await axios.delete(
       `https://localhost:7101/api/Events?id=${payload}`
     )
+    commit('removeEvent')
+    console.log(payload)
     if (response.status === 200) {
       commit('setCurrentAppointment', {})
     }
@@ -85,20 +107,6 @@ export const actions = {
     if (response.status === 204) {
       commit('setCurrentAppointment', {})
       commit('closeAllModals')
-    }
-  },
-  async addNewEvent({ commit }, payload) {
-    try {
-      const response = await axios.post(
-        `https://localhost:7101/api/Events/add`,
-        payload
-      )
-      if (response.status === 200) {
-        commit('setCurrentAppointment', {})
-        commit('closeAllModals')
-      }
-    } catch (e) {
-      console.log(e)
     }
   },
 }

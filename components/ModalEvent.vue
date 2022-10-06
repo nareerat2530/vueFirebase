@@ -70,20 +70,20 @@ export default {
       this.$store.commit('updateEventDate', e.target.value)
     },
 
-    onSaveButtonClick() {
-      // console.log(
-      //   this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
-      // )
-      const currentEventDate =
-        this.$store.getters.getCurrentAppointment.eventDate
-      console.log(currentEventDate)
-      this.$store.commit(
-        'updateEventDate',
-        new Date(currentEventDate).toISOString()
+    async onSaveButtonClick() {
+      console.log(
+        this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
       )
+      // const currentEventDate =
+      //   this.$store.getters.getCurrentAppointment.eventDate
+      // console.log(currentEventDate)
+      // this.$store.commit(
+      //   'updateEventDate',
+      //   new Date(currentEventDate).toISOString()
+      // )
       console.log(this.$store.getters.getCurrentAppointment)
-     this.$store.dispatch(
-        this.$store.getters.showAddEventModal ? 'addNewEvent'  : 'updateEvent',
+      await this.$store.dispatch(
+        this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent',
         this.$store.getters.getCurrentAppointment
       )
     },

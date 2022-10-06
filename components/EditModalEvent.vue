@@ -38,10 +38,10 @@ export default {
     ...mapGetters(['getCurrentAppointment']),
   },
   methods: {
-    deleteEvent() {
+    async deleteEvent() {
       this.$store.commit('closeAllModals')
 
-      this.$store.dispatch(
+      await this.$store.dispatch(
         'deleteEvent',
         this.$store.getters.getCurrentAppointment.id
       )
