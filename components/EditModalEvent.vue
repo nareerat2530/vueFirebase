@@ -53,7 +53,6 @@ export default {
     editEventButtonClick() {
       this.$store.commit('closeAllModals')
       this.$store.commit('setShowEventModal', true)
-     
     },
   },
 }

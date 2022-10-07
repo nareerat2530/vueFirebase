@@ -4,7 +4,6 @@
     <div class="modal-window" @click.stop>
       <form>
         <div class="form-group">
-          <div>{{Appointment.id}}</div>
           <label for="description">Description</label>
           <input
             id="description"
@@ -75,15 +74,15 @@ export default {
       console.log(
         this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
       )
-   
+
       const currentEventDate =
         this.$store.getters.getCurrentAppointment.eventDate
-     
+
       this.$store.commit(
         'updateEventDate',
         new Date(currentEventDate).toISOString()
       )
-     
+
       await this.$store.dispatch(
         this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent',
         this.$store.getters.getCurrentAppointment

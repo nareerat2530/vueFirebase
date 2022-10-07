@@ -142,7 +142,7 @@ export default {
         }
        } catch (e) {
          this.error = e.response.data.Message
-        // console.log(e.response.data.Message)
+       
       }
     },
   },

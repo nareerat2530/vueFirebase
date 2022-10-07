@@ -2,16 +2,7 @@
   <div>
     <div class="container">
       <MainCalendar :key="calenderKey" />
-      <ModalEvent
-        v-show="showAddEventModal"
-        @closeModal="closeModals"
-        @banana="(u) => onAddEventForm(u)"
-      />
-      <ModalEvent
-        v-show="showEventModal"
-        @closeModal="closeModals"
-        @banana="(u) => updateEvent(u)"
-      />
+      <ModalEvent v-show="showAddEventModal" @closeModal="closeModals" />
       <EditModalEvent
         v-show="showEditEventModal"
         @closeModal="closeModals"
@@ -30,9 +21,9 @@ export default {
   components: {
     MainCalendar,
   },
-  data () {
+  data() {
     return {
-      calenderKey:1
+      calenderKey: 1,
     }
   },
   computed: {
@@ -49,15 +40,13 @@ export default {
     closeModals() {
       this.$store.commit('closeAllModals', false)
     },
-    forceRerender () {
-      this.calenderKey += 1;  
-    }
+    forceRerender() {
+      this.calenderKey += 1
+    },
   },
   watch: {
     count(newCount, oldCount) {
-     
-      this.forceRerender();
-     
+      this.forceRerender()
     },
   },
 }

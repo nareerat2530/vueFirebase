@@ -67,11 +67,6 @@ export default {
 
       this.events = this.$store.getters.getEvents
     }
-    if (this.findEvent.length > 0) {
-      console.log('am i defined or not bitch', this.events)
-    } else {
-      console.log('no you are not a bitch')
-    }
 
     getEvents()
   },
@@ -196,10 +191,8 @@ export default {
 
   methods: {
     getWeekday(date) {
-      // console.log(date)
       return dayjs(date).weekday()
     },
- 
 
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate
