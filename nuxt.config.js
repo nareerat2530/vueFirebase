@@ -1,3 +1,6 @@
+import { join } from 'path'
+
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -15,20 +18,28 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    '@/assets/css/main.css','@fortawesome/fontawesome-svg-core/styles.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
 
     { src: '~/plugins/vue-TextareaAutosize.js' },
     { src: '~/plugins/firebase' },
+    {src :'~/plugins/fontawesome.js'},
+
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/vuetify'],
+  buildModules: ['@nuxt/postcss8', 
+                 '@nuxtjs/fontawesome'
+  ],
+  
+
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -38,6 +49,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    
 
   ],
   auth: {
@@ -54,7 +66,7 @@ export default {
         },
         endpoints: {
           login: {
-            url: 'https://localhost:7101/api/Authentication_/Login',
+            url: 'https://localhost:7101/api/Authentication/Login',
             method: 'post',
           },
           // logout: { url: '/api/auth/logout', method: 'post' },
@@ -66,6 +78,7 @@ export default {
       },
     },
   },
+  
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -74,5 +87,12 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {  
+    postcss: {
+      plugins: {
+        tailwindcss: join(__dirname, 'tailwind.config.js'),
+          
+    },
+  },
+}
 }

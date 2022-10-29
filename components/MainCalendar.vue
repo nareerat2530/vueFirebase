@@ -1,16 +1,16 @@
 <template>
-  <div class="calendar-month">
-    <div class="calendar-month-header">
+  <div class="bg-red-500">
+    <div class="bg-green-500">
       <CalendarDateIndicator
         :selected-date="selectedDate"
-        class="calendar-month-header-selected-month"
+        class="bg-purple-500"
       />
       <CalendarDateSelector
         :current-date="today"
         :selected-date="selectedDate"
         @dateSelected="selectDate"
       />
-      <button @click="$store.commit('setShowAddEventModal', true)">
+      <button class="bg-yellow-500 justify-end" @click="$store.commit('setShowAddEventModal', true)">
         Add Appointment
       </button>
     </div>
@@ -200,45 +200,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.calendar-month {
-  position: relative;
-  background-color: white;
-  border: solid 1px var(--grey-300);
-}
-.day-of-week {
-  color: var(--grey-800);
-  font-size: 18px;
-  background-color: #fff;
-  padding-bottom: 5px;
-  padding-top: 10px;
-}
-
-.day-of-week,
-.days-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
-
-.day-of-week > * {
-  text-align: right;
-  padding-right: 5px;
-}
-
-.days-grid {
-  height: 100%;
-  position: relative;
-  grid-column-gap: var(--grid-gap);
-  grid-row-gap: var(--grid-gap);
-  border-top: solid 1px var(--grey-200);
-}
-button {
-  background-color: #ac003e;
-  width: 150px;
-  height: 40px;
-  color: white;
-  font-size: 14px;
-  border-radius: 16px;
-}
-</style>

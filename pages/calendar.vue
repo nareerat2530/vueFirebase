@@ -8,8 +8,8 @@
         @closeModal="closeModals"
         :showModalEvent="true"
       />
-
-      <button><nuxt-link class="button" to="/">Back</nuxt-link></button>
+      <Button buttonText="Back" @clicked="backClick" />
+      <Button /><nuxt-link class="bg-red-500" to="/">Back</nuxt-link>
     </div>
   </div>
 </template>
@@ -43,6 +43,9 @@ export default {
     forceRerender() {
       this.calenderKey += 1
     },
+    backClick(){
+      this.$router.push('/')
+    }
   },
   watch: {
     count(newCount, oldCount) {
@@ -51,20 +54,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.container {
-  margin-top: 50px;
-  width: 60%;
-  background: yellow;
-  @media (max-width: 1200px) {
-    width: 80%;
-  }
-}
-button {
-  height: 40px;
-  color: white;
-  font-size: 16px;
-  border-radius: 16px;
-  text-decoration: underline;
-}
-</style>
+
