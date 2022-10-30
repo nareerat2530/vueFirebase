@@ -1,33 +1,40 @@
 <template>
-  <transition name="modal-fade">
-    <div
-      v-show="getCurrentAppointment !== null"
-      class="modal-overlay"
-      @click="onModalClose"
-    >
-      <div class="modal-window" @click.stop>
-        <h2>{{ getCurrentAppointment?.description }}</h2>
+  <div
+    v-show="getCurrentAppointment !== null"
+    class="fixed inset-0 h-screen flex bg-opacity-30 backdrop-blur-sm"
+    @click="onModalClose"
+  >
+    <div class="lg:max-w-max lg:h-1/6 lg:m-auto lg:w-min-fit container bg-pink-300 rounded-3xl justify-center  shadow-2xl shadow-black  border-2 flex" @click.stop>
+      <div class=" ">
+        <div class="text-center m-2 ">
+          <h2 class="text-black pt-2 text-3xl">
+            {{ getCurrentAppointment?.description }}
+          </h2>
+        </div>
 
-        <button type="button" class="btn-cancel" @click="deleteEvent">
-          Remove
-        </button>
-        <button @click="editEventButtonClick">Edit</button>
-
-        <button type="button" class="btn-cancel" @click="onModalClose">
-          Cancel
-        </button>
+        <div class="inline-flex space-x-4 items-center px-5 md:items-center">
+          <Button buttonText="Remove" @clicked="deleteEvent" />
+          <Button buttonText="Edit" @clicked="editEventButtonClick" />
+          <Button buttonText="Cancel" @clicked="onModalClose" />
+          <button class="bg-red-500" @click="deleteEvent">Remove</button>
+          
+         
+        </div>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 <script>
 import ModalEvent from './ModalEvent.vue'
+import Button from './Button.vue'
 
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
     ModalEvent,
+    Button
+
   },
   props: {
     showModalEvent: {
@@ -57,9 +64,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.modal-window {
-  height: 200px;
-}
-</style>

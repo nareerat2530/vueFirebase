@@ -1,23 +1,26 @@
 <template>
-  <div class="bg-red-500">
-    <div class="bg-green-500">
-      <CalendarDateIndicator
+  <div class="h-screen  pt-24 w-full">
+    <div class="flex sm:flex-row justify-between mb-5">
+      
+      <CalendarDateIndicator 
         :selected-date="selectedDate"
-        class="bg-purple-500"
-      />
-      <CalendarDateSelector
         :current-date="today"
-        :selected-date="selectedDate"
         @dateSelected="selectDate"
+        class="text-center"
       />
-      <button class="bg-yellow-500 justify-end" @click="$store.commit('setShowAddEventModal', true)">
-        Add Appointment
-      </button>
+      <div class="hidden sm:block">
+        <Button
+          buttonText="Add Appointment"
+          @clicked="$store.commit('setShowAddEventModal', true)"
+        />
+      </div>
+   
     </div>
-
+    
+    <div class="mt-5 justify-end">
     <CalendarWeekdays />
 
-    <ol class="days-grid">
+    <ol class="grid grid-cols-7 items-end" >
       <CalendarMonthDayItem
         v-for="day in findEvent"
         :key="day.date"
@@ -26,6 +29,7 @@
       />
     </ol>
   </div>
+  </div>
 </template>
 
 <script>
@@ -33,10 +37,11 @@ import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import CalendarDateIndicator from './CalendarDateIndicator.vue'
-import CalendarDateSelector from './CalendarDateSelector'
+
 import CalendarMonthDayItem from './CalendarMonthDayItem.vue'
 import CalendarWeekdays from './CalendarWeekdays.vue'
 import ModalEvent from './ModalEvent.vue'
+import Button from './Button.vue'
 
 dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
@@ -46,15 +51,17 @@ export default {
 
   components: {
     CalendarDateIndicator,
-    CalendarDateSelector,
+
     CalendarMonthDayItem,
     CalendarWeekdays,
     ModalEvent,
+    Button,
   },
 
   data() {
     return {
       selectedDate: dayjs(),
+
       modalEvent: false,
       events: this.$store.getters.getEvents,
       // componentKey: 0,

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-gray-300">
     <div class="container">
       <MainCalendar :key="calenderKey" />
       <ModalEvent v-show="showAddEventModal" @closeModal="closeModals" />
@@ -8,8 +8,8 @@
         @closeModal="closeModals"
         :showModalEvent="true"
       />
-      <Button buttonText="Back" @clicked="backClick" />
-      <Button /><nuxt-link class="bg-red-500" to="/">Back</nuxt-link>
+      
+     
     </div>
   </div>
 </template>
@@ -35,6 +35,12 @@ export default {
     count() {
       return this.$store.state.events.length
     },
+    token() {
+      const token = this.$auth.strategy.token.get()
+      const decoded = jwt_decode(token)
+
+      return decoded
+    },
   },
   methods: {
     closeModals() {
@@ -43,9 +49,7 @@ export default {
     forceRerender() {
       this.calenderKey += 1
     },
-    backClick(){
-      this.$router.push('/')
-    }
+  
   },
   watch: {
     count(newCount, oldCount) {

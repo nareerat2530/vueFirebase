@@ -10,9 +10,9 @@ export default {
   props: ['Message'],
 }
 </script>
-<style scoped>
+<!-- <style scoped>
 .notification {
   font-size: 30px;
   color: red;
 }
-</style>
+</style> -->

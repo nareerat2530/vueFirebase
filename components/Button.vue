@@ -1,30 +1,30 @@
 <template>
   <div>
     <button
-		class="w-full max-w-min lg:px-4 py-2 truncate font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-		type="button" @click="buttonCLick()">{{buttonText}}</button>
+      class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 
+      hover:shadow-2xl hover:shadow-black focus:ring-blue-300 font-medium
+       rounded-lg text-sm 
+      px-5 py-2 text-center sm:p-12 dark:bg-blue-600 dark:hover:bg-blue-700
+       dark:focus:ring-blue-800"
+      type="button"
+      @click="buttonCLick()"
+    >
+      {{ buttonText }}
+    </button>
   </div>
 </template>
 
 <script>
-import { future } from '~/tailwind.config';
 export default {
-    created() {
-    this.$emit('created');},
-    props: {
+  props: {
     buttonText: String,
-   
-    emits: ['click-event'],
   },
-  methods:{
- buttonCLick (){
-    this.$emit('clicked', 'someValue')
+  methods: {
+    buttonCLick() {
+      this.$emit('clicked')
+    },
+  },
 }
-  }
-}
-
 </script>
 
-<style>
-
-</style>
+<style></style>
