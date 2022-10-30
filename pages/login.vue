@@ -8,7 +8,7 @@
           <!-- Col -->
           <div
             
-            class="bg-[url('https://firebasestorage.googleapis.com/v0/b/firebase-with-dotnet.appspot.com/o/12045238_10205123972482336_6232386099057183758_o.jpg?alt=media&token=8a8e0f84-9a91-404d-bf21-433ac4a08fd0')] bg-gray-400 hidden lg:block lg:w-6/12 bg-cover rounded-l-lg opacity-100"
+            class="bg-[url('~/assets/path.jpg')] bg-gray-400 hidden lg:block lg:w-6/12 bg-cover rounded-l-lg opacity-100"
           ></div>
           <!-- Col -->
           <div
@@ -62,7 +62,7 @@
                   </ul>
                 </span>
 
-                <Button buttonText="Login" @clicked="userLogin" />
+                <Button buttonText="Login" @clicked="checkForm" />
               </div>
               <hr class="mb-6 border-t" />
               <div class="text-center">
@@ -119,18 +119,15 @@ export default {
     checkForm(e) {
       this.errors = []
 
-      if (!this.username) {
-        this.errors.push('Sorry, the username is required')
+      if (!this.login.email) {
+        this.errors.push('Sorry, email is required')
       }
-      if (this.email === email)
-        if (!this.email) {
-          this.errors.push('Sorry, the email is required')
-        }
-      if (!this.password || this.password.length < 6) {
-        this.errors.push('Sorry, the password is required')
+     
+      if (!this.login.password) {
+        this.errors.push('Sorry, password is required')
       }
       if (!this.errors.length) {
-        this.onSignup()
+        this.userLogin()
       }
     },
     async userLogin() {
@@ -141,12 +138,14 @@ export default {
         this.$auth.strategy.token.set(data.firebaseToken)
         const token = this.$auth.strategy.token.get()
         const decoded = jwt_decode(token)
+       
 
         const resp = await axios.get(
           `https://localhost:7101/api/User/${decoded.user_id}`
         )
 
         const user = this.$auth.setUser(resp.data)
+        axios.defaults.headers.common['Authorization'] = token;
         // console.log(user)
         this.$router.push('/', user)
       } catch (e) {

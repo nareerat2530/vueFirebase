@@ -8,7 +8,7 @@
       @click.stop
     >
       <div
-        class="w-full lg:w-4/12 py-12 lg:p-5 rounded-lg bg-orange-500 items-center p-5 shadow-2xl shadow-black"
+        class="w-full lg:w-4/12 py-12 lg:p-5 rounded-lg items-center bg-purple-300 p-5 shadow-2xl shadow-black"
       >
         <div class="close" @click="onModalClose">
           <img class="close-img" src="~/assets/close-icon.svg" alt="" />
@@ -19,7 +19,7 @@
         >
           Add new Appointment
         </h3>
-        <form class="lg:px-8 pt-6 pb-8 mb-4 @submit.prevent bg-white rounded">
+        <form class="lg:px-8 pt-6 pb-8 mb-4 @submit.prevent rounded">
           <div class="mb-4">
             <label
               class="block mb-2 text-sm font-bold text-gray-700"
@@ -35,7 +35,7 @@
               type="description"
               name="description"
               placeholder="description"
-              required=""
+              required
             />
           </div>
           <div class="mb-4">
@@ -76,6 +76,11 @@ export default {
   components: { Button },
   name: 'ModalEvent',
 
+  data(){
+    return{
+      errors:[]
+    }
+  },
   computed: {
     ...mapState({
       Appointment: (state) => state.Appointment,
@@ -90,6 +95,19 @@ export default {
       this.$store.commit('setCurrentAppointment', {})
       this.$emit('closeModal')
     },
+    checkForm(e) {
+      this.errors = []
+      console.log("hallo")
+
+      if (!this.description) {
+        this.errors.push('Sorry, the description is required')
+      }
+      if (!this.errors.length) {
+        this.onSaveButtonClick()
+
+      }
+     
+    },
     setDescription(e) {
       this.$store.commit('updateDescription', e.target.value)
     },
@@ -102,6 +120,7 @@ export default {
         this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
       )
 
+      
       const currentEventDate =
         this.$store.getters.getCurrentAppointment.eventDate
 
@@ -109,6 +128,12 @@ export default {
         'updateEventDate',
         new Date(currentEventDate).toISOString()
       )
+      if(!currentEventDate) {
+        this.$store.commit(
+        'updateEventDate',
+        dayjs().format("YYYY-MM-DD")
+      )
+      }
 
       await this.$store.dispatch(
         this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent',

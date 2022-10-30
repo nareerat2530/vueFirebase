@@ -80,7 +80,7 @@ export default {
       this.modalEvent = this.findEvent
       }
       else{
-        $store.commit('setShowAddEventModal', true)
+        this.$store.commit('setShowAddEventModal', true)
       }
     }
   },

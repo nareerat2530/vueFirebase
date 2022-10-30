@@ -1,22 +1,23 @@
 <template>
- <div class=" bg-[#fee2e2] h-screen whitespace-nowrap overflow-auto scrollbar-hide" >
-    <div class="container font-sans bg-[#fee2e2]">
-      <div class="flex justify-center pt-24 px-6">
+  <div class=" bg-[#fee2e2]  h-screen whitespace-nowrap overflow-auto scrollbar-hide" >
+ <div class="container font-sans xl:pt-32 pt-24 ">
+      <div class="flex justify-center">
         <!-- Row -->
-        <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+        <div class="w-4/6 sm:w-3/5 md:w-2/4 xl:w-3/4  lg:w-11/12 flex shadow-2xl shadow-black">
           <!-- Col -->
           <div
-            class="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-            style="
-              background-image: url('https://images.unsplash.com/photo-1553227582-6d8929b3c49d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzk2fHxiaXJkfGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=500&q=60');
-            "
+            
+            class="bg-[url('~/assets/registerBird.avif')] object-cover bg-gray-400 hidden lg:block lg:w-6/12 bg-cover rounded-l-lg opacity-100"
           ></div>
           <!-- Col -->
           <div
-            class="w-full xl:lg:w-5/12 bg-white lg:p-5 rounded-lg lg:rounded-l-none"
+            class="w-full lg:w-6/12  bg-gray-200 lg:p-5  lg:rounded-full-none "
           >
-            <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
-            <form class="px-8 pt-6 pb-8 mb-4 @submit.prevent bg-white rounded">
+            <h3 class="pt-4 text-2xl mb-10 text-center">Register</h3>
+            <form
+              class="lg:px-8  mb-4 @submit.prevent  rounded"
+            >
+            <div class="flex flex-col items-center">
               <div class="mb-4">
                 <label
                   class="block mb-2 text-sm font-bold text-gray-700 items-center"
@@ -93,12 +94,14 @@
                   Already have an account? Login!
                 </nuxt-link>
               </div>
+              </div>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -128,14 +131,14 @@ export default {
       //e.preventDefault();
       this.errors = []
       if (!this.username) {
-        this.errors.push('Sorry, the username is required')
+        this.errors.push('Sorry, username is required')
       }
 
       if (!this.email) {
-        this.errors.push('Sorry, the email is required')
+        this.errors.push('Sorry, email is required')
       }
       if (!this.password || this.password.length < 6) {
-        this.errors.push('Sorry, the password is required')
+        this.errors.push('Sorry, the password is required or needed to be more 6 charactors')
       }
       if (!this.errors.length) {
         this.onSignup()
@@ -166,6 +169,7 @@ export default {
           this.$auth.strategy.token.set(data.firebaseToken)
           const token = this.$auth.strategy.token.get()
           const decoded = jwt_decode(token)
+          axios.defaults.headers.common['Authorization'] = token;
           const resp = await axios.get(
             `https://localhost:7101/api/User/${decoded.user_id}`
           )
