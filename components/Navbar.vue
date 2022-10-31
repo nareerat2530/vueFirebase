@@ -4,7 +4,7 @@
       <div class="mt-3 h-4 ml-3 text-xl cursor-pointer">
         <nuxt-link
           class="text-sm font-bold inline-block ml-4 py-4 whitespace-nowrap uppercase text-white"
-          to="/"
+          to="/home"
         >
           Home
         </nuxt-link>
@@ -67,16 +67,7 @@
           v-if="$auth.loggedIn"
           class="lg:flex hidden sm:visible sm:block row-auto mr-4 py-4"
         >
-          <li class="list-none" @click="onLogout">
-            <nuxt-link
-              class="px-3 py-2 truncate flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-              to="/"
-            >
-              <i
-                class="fab fa-pinterest text-lg leading-lg text-white opacity-75"
-              /><span class="ml-2">Log Out</span>
-            </nuxt-link>
-          </li>
+         
           <li class="list-none">
             <nuxt-link
               class="px-3 py-2 truncate flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
@@ -95,6 +86,16 @@
               <i
                 class="fab fa-pinterest text-lg leading-lg text-white opacity-75"
               /><span class="ml-2">Calendar</span>
+            </nuxt-link>
+          </li>
+          <li class="list-none" @click="onLogout">
+            <nuxt-link
+              class="px-3 py-2 truncate flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+              to="/"
+            >
+              <i
+                class="fab fa-pinterest text-lg leading-lg text-white opacity-75"
+              /><span class="ml-2">Log Out</span>
             </nuxt-link>
           </li>
         </div>

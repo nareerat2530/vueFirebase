@@ -4,6 +4,7 @@ export const state = () => ({
   showAddEventModal: false,
   showEditEventModal: false,
   currentEventEdit: null,
+  isEditing: false,
   events: [],
   Appointment: {
     id: '',
@@ -14,6 +15,7 @@ export const state = () => ({
 })
 
 export const getters = {
+  isEditing: (state) => state.isEditing,
   showEventModal: (state) => state.showEventModal,
   showEditEventModal: (state) => state.showEditEventModal,
 
@@ -27,6 +29,9 @@ export const getters = {
 export const mutations = {
   setShowEventModal(state, payload) {
     state.showEventModal = payload
+  },
+  setIsEditing(state, payload) {
+    state.isEditing = payload
   },
   setShowAddEventModal(state, payload) {
     state.showAddEventModal = payload
@@ -68,7 +73,7 @@ export const actions = {
       commit('setEvents', response.data)
     } catch (error) {
       alert(error)
-      console.log(error)
+      console.error(error)
     }
   },
   async addNewEvent({ commit }, payload) {
@@ -84,7 +89,7 @@ export const actions = {
         commit('closeAllModals')
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
   async deleteEvent({ commit }, payload) {
@@ -104,8 +109,9 @@ export const actions = {
       `https://localhost:7101/api/Events?id=${payload.id}`,
       payload
     )
-    if (response.status === 204) {
+    if (response.status === 200) {
       commit('setCurrentAppointment', {})
+      commit('setIsEditing', false)
       commit('closeAllModals')
     }
   },

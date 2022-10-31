@@ -60,6 +60,8 @@ export default {
     editEventButtonClick() {
       this.$store.commit('closeAllModals')
       this.$store.commit('setShowAddEventModal', true)
+      this.$store.commit('setIsEditing', true)
+      console.log(this.$store.getters.isEditing ? 'updateEvent' : 'addNewEvent',)
     },
   },
 }

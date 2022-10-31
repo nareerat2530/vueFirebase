@@ -147,7 +147,7 @@ export default {
         const user = this.$auth.setUser(resp.data)
         axios.defaults.headers.common['Authorization'] = token;
     
-        this.$router.push('/', user)
+    
       } catch (e) {
         this.error = e.response.data.Message
         console.error(e.response.data.Message)

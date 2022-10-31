@@ -13,11 +13,17 @@
         <div class="close" @click="onModalClose">
           <img class="close-img" src="~/assets/close-icon.svg" alt="" />
         </div>
-
         <h3
+        v-if="!this.$store.getters.isEditing"
           class="mb-4 text-xl py10 font-medium text-gray-900 dark:text-white text-center"
         >
           Add new Appointment
+        </h3>
+        <h3
+        v-else
+          class="mb-4 text-xl py10 font-medium text-gray-900 dark:text-white text-center"
+        >
+          Edit Appointment
         </h3>
         <form class="lg:px-8 pt-6 pb-8 mb-4 @submit.prevent rounded">
           <div class="mb-4">
@@ -94,6 +100,7 @@ export default {
     onModalClose() {
       this.$store.commit('setCurrentAppointment', {})
       this.$emit('closeModal')
+      this.$store.commit('setIsEditing', false)
     },
     checkForm(e) {
       this.errors = []
@@ -134,7 +141,7 @@ export default {
       }
 
       await this.$store.dispatch(
-        this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent',
+        this.$store.getters.isEditing ? 'updateEvent' : 'addNewEvent',
         this.$store.getters.getCurrentAppointment
       )
     },

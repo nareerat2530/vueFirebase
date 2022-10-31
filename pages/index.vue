@@ -5,11 +5,12 @@
 
 <script>
 export default {
-    middleware({ route, redirect, from }) {
-    if(route.path == "/" || route.path == "//"){
-     return redirect("/home")
-    }
-}}
+    // middleware({ route, redirect, from }) 
+    // if(route.path == "/"){
+    //  return redirect("/home")
+    
+
+}
 </script>
 
 <style>
