@@ -9,7 +9,7 @@
         class="bg-[url('~/assets/winter.jpg')] bg-cover bg-center"
       >
         <div
-          class="mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
+          class="mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex h-screen lg:items-center lg:px-8"
         >
           <div class="max-w-xl text-center sm:text-left">
             <h1 class="text-3xl font-extrabold text-purple-500 sm:text-5xl">
@@ -26,19 +26,20 @@
             </p>
 
             <div class="mt-8 flex flex-wrap gap-4 text-center">
-              <a
-                href="/register"
+              <nuxt-link
+              to="/register"
                 class="block w-full rounded bg-purple-500 px-12 py-3 text-sm font-medium text-white shadow hover:bg-purple-700 focus:outline-none focus:ring active:bg-purple-500 sm:w-auto"
               >
-                Get Started
-              </a>
+                Register!
+              </nuxt-link>
 
-              <a
-                href="#"
+                <nuxt-link
+                  to="/login"
+              
                 class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
               >
-                Learn More
-              </a>
+          Login
+                </nuxt-link>
             </div>
           </div>
         </div>

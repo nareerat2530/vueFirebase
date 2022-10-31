@@ -1,5 +1,5 @@
 <template>
-  <div class=" bg-[#fee2e2]  h-screen whitespace-nowrap overflow-auto scrollbar-hide" >
+  <div class=" bg-[#fee2e2]  h-screen whitespace-nowrap overflow-auto scrollbar-hide pt-20" >
  <div class="container font-sans xl:pt-32 pt-24 ">
       <div class="flex justify-center">
         <!-- Row -->

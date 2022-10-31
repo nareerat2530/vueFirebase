@@ -1,5 +1,5 @@
 <template>
-  <div class=" bg-[#ede9fe] h-screen whitespace-nowrap overflow-auto scrollbar-hide" >
+  <div class=" bg-[#ede9fe] h-screen whitespace-nowrap overflow-auto scrollbar-hide pt-20" >
     
     <div class="container font-sans xl:pt-32 pt-24 ">
       <div class="flex justify-center">
@@ -146,11 +146,11 @@ export default {
 
         const user = this.$auth.setUser(resp.data)
         axios.defaults.headers.common['Authorization'] = token;
-        // console.log(user)
+    
         this.$router.push('/', user)
       } catch (e) {
         this.error = e.response.data.Message
-        console.log(e.response.data.Message)
+        console.error(e.response.data.Message)
       }
     },
   },

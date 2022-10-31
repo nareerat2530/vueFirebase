@@ -8,7 +8,7 @@
       @click.stop
     >
       <div
-        class="w-full lg:w-4/12 py-12 lg:p-5 rounded-lg items-center bg-purple-300 p-5 shadow-2xl shadow-black"
+        class="w-2/4 lg:w-4/12 md:py-12 p-5 rounded-lg bg-purple-300  shadow-2xl shadow-black"
       >
         <div class="close" @click="onModalClose">
           <img class="close-img" src="~/assets/close-icon.svg" alt="" />
@@ -59,7 +59,7 @@
             </div>
           </div>
         </form>
-        <div class="inline-flex space-x-4 items-center px-5 md:items-center">
+        <div class="inline-flex  items-apart md:items-center">
           <Button buttonText="Cancel" @clicked="onModalClose" />
           <Button buttonText="Save" @clicked="onSaveButtonClick" />
         </div>
@@ -97,7 +97,7 @@ export default {
     },
     checkForm(e) {
       this.errors = []
-      console.log("hallo")
+    
 
       if (!this.description) {
         this.errors.push('Sorry, the description is required')
@@ -116,9 +116,7 @@ export default {
     },
 
     async onSaveButtonClick() {
-      console.log(
-        this.$store.getters.showAddEventModal ? 'addNewEvent' : 'updateEvent'
-      )
+  
 
       
       const currentEventDate =

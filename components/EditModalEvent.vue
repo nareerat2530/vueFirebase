@@ -4,7 +4,7 @@
     class="fixed inset-0 h-screen flex bg-opacity-30 backdrop-blur-sm"
     @click="onModalClose"
   >
-    <div class="h-2/12 lg:m-auto container h-fit bg-pink-200 rounded-3xl justify-center  shadow-2xl shadow-black  border-2 flex" @click.stop>
+    <div class="h-2/12 sm:1/6 md:w-5/12 w-3/5 self-center lg:m-auto container h-fit bg-pink-200 rounded-3xl justify-center  shadow-2xl shadow-black  border-2 flex" @click.stop>
       <div class=" ">
         <div class="text-center m-2 ">
           <h2 class="text-black pt-2 text-3xl">
